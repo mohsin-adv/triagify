@@ -21,8 +21,15 @@ const axiosInstance = axios.create({
 
 // 🧾 Get issue by key
 export async function getIssue(issueKey) {
-  const res = await axiosInstance.get(`/issue/${issueKey}`);
-  return res.data;
+  const response = await axiosInstance.get(`/issue/${issueKey}`);
+  const data = await response.json();
+  return data.issues.map(i => ({
+    key: i.key,
+    summary: i.fields.summary,
+    description: i.fields.description || "",
+    comments: (i.fields.comment?.comments || []).map(c => c.body).join("\n"),
+    resolution: i.fields.resolution?.name || "Unresolved",
+  }));
 }
 
 // 📋 Get all issues using JQL
