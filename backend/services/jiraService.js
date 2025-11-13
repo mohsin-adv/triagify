@@ -33,9 +33,34 @@ export async function getIssue(issueKey) {
 }
 
 // 📋 Get all issues using JQL
-export async function getAllIssues(jql = `project=${projectKey}`) {
-  const res = await axiosInstance.get(`/search?jql=${encodeURIComponent(jql)}`);
-  return res.data.issues;
+export async function getAllIssues(projectKey, maxResults = 100) {
+  if (!jiraDomain || !email || !apiToken) {
+    throw new Error("JIRA credentials or base URL not configured properly.");
+  }
+
+  try {
+    const response = await axiosInstance.post(
+      `/search/jql`,
+      {
+        jql: `project = ${projectKey} ORDER BY created DESC`,
+        maxResults: maxResults,
+        fields: ["summary", "status", "priority", "assignee", "comment", "worklog", "timespent", "timeoriginalestimate", "timeestimate", "workdone", "rootcause", "rootcauseresolution", "customfield_*"],
+      }
+    );
+
+    const issues = response.data.issues.map(i => ({
+      key: i.key,
+      summary: i.fields.summary,
+      description: i.fields.description || "",
+      comments: (i.fields.comment?.comments || []).map(c => c.body).join("\n"),
+      resolution: i.fields.resolution?.name || "Unresolved",
+    }));
+
+    return { issues };
+  } catch (err) {
+    console.error("Jira error:", err.response?.data || err.message);
+    throw new Error(err.response?.data?.errorMessages?.[0] || err.message || "Failed to fetch project issues");
+  }
 }
 
 // ➕ Create a new issue

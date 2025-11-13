@@ -1,6 +1,7 @@
 import express from "express";
 import axios from "axios";
 import dotenv from "dotenv";
+import { getAllIssues } from "../services/jiraService.js";
 
 // Load environment variables
 dotenv.config();
@@ -15,73 +16,16 @@ router.get("/issues/:projectKey", async (req, res) => {
   const { projectKey } = req.params;
 
   // quick debug
-  console.log("API token :", JIRA_API_TOKEN ? `${JIRA_API_TOKEN.substring(0, 10)}...` : 'undefined');
   console.log("Fetching issues for:", projectKey);
-  console.log("Using Jira URL:", JIRA_BASE_URL);
-  console.log("Using Jira Email:", JIRA_EMAIL);
-
-  if (!JIRA_BASE_URL || !JIRA_EMAIL || !JIRA_API_TOKEN) {
-    return res
-      .status(500)
-      .json({ error: "JIRA credentials or base URL not configured properly." });
-  }
 
   try {
-    const response = await axios.post(
-      `${JIRA_BASE_URL}/rest/api/3/search/jql`, // ✅ updated to new endpoint
-      {
-        jql: `project = ${projectKey} ORDER BY created DESC`,
-        maxResults: 100,
-        fields: ["summary", "status", "priority", "assignee", "comment", "worklog", "timespent", "timeoriginalestimate", "timeestimate", "workdone", "rootcause", "rootcauseresolution", "customfield_*"],
-      },
-      {
-        headers: {
-          Authorization: `Basic ${Buffer.from(
-            `${JIRA_EMAIL}:${JIRA_API_TOKEN}`
-          ).toString("base64")}`,
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-      }
-    );
-
-    const issues = response.data.issues.map((i) => ({
-      key: i.key,
-      summary: i.fields.summary,
-      status: i.fields.status?.name,
-      priority: i.fields.priority?.name,
-      assignee: i.fields.assignee?.displayName || "Unassigned",
-      timeSpent: i.fields.timespent || 0, // Time spent in seconds
-      timeEstimate: i.fields.timeestimate || 0, // Remaining estimate in seconds
-      originalEstimate: i.fields.timeoriginalestimate || 0, // Original estimate in seconds
-      workDone: i.fields.workdone || null, // Custom workdone field
-      rootCause: i.fields.rootcause || null, // Root cause field
-      rootCauseResolution: i.fields.rootcauseresolution || null, // Root cause resolution field
-      worklog: i.fields.worklog?.worklogs?.map(work => ({
-        id: work.id,
-        author: work.author?.displayName,
-        timeSpent: work.timeSpent,
-        timeSpentSeconds: work.timeSpentSeconds,
-        comment: work.comment,
-        started: work.started,
-        created: work.created,
-        updated: work.updated
-      })) || [],
-      comments: i.fields.comment?.comments?.map(comment => ({
-        id: comment.id,
-        author: comment.author?.displayName,
-        body: comment.body,
-        created: comment.created,
-        updated: comment.updated
-      })) || []
-    }));
-
-    res.json({ issues });
+    const result = await getAllIssues(projectKey);
+    return res.json(result);
   } catch (err) {
-    console.error("Jira error:", err.response?.data || err.message);
+    console.error("Error fetching issues:", err.message);
     res.status(500).json({
       error: "Failed to fetch project issues",
-      details: err.response?.data || err.message,
+      details: err.message,
     });
   }
 });
