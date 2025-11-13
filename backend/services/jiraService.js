@@ -1,12 +1,18 @@
 import axios from "axios";
 import dotenv from "dotenv";
 
+// Load environment variables
 dotenv.config();
 
-const jiraDomain = process.env.JIRA_DOMAIN;
+const jiraDomain = process.env.JIRA_BASE_URL;
 const email = process.env.JIRA_EMAIL;
 const apiToken = process.env.JIRA_API_TOKEN;
-const projectKey = process.env.JIRA_PROJECT_KEY;
+
+// Debug logging (remove in production)
+console.log('JIRA Service - Environment Variables:');
+console.log('JIRA_BASE_URL:', jiraDomain);
+console.log('JIRA_EMAIL:', email ? 'configured' : 'missing');
+console.log('JIRA_API_TOKEN:', apiToken ? 'configured (length: ' + apiToken.length + ')' : 'missing');
 
 const auth = Buffer.from(`${email}:${apiToken}`).toString("base64");
 
@@ -18,6 +24,21 @@ const axiosInstance = axios.create({
     "Content-Type": "application/json",
   },
 });
+
+// Helper function to extract text from JIRA's Atlassian Document Format (ADF)
+function extractTextFromADF(body) {
+  if (typeof body === 'string') {
+    return body;
+  } else if (body && body.content) {
+    return body.content.map(paragraph => {
+      if (paragraph.content) {
+        return paragraph.content.map(item => item.text || '').join('');
+      }
+      return '';
+    }).join('\n');
+  }
+  return '';
+}
 
 // 🧾 Get issue by key
 export async function getIssue(issueKey) {
@@ -33,7 +54,7 @@ export async function getIssue(issueKey) {
       key: issue.key,
       summary: issue.fields.summary,
       description: issue.fields.description || "",
-      comments: (issue.fields.comment?.comments || []).map(c => c.body).join("\n"),
+      comments: (issue.fields.comment?.comments || []).map(c => extractTextFromADF(c.body)).filter(comment => comment.trim()).join("\n"),
       resolution: issue.fields.resolution?.name || "Unresolved",
     };
   } catch (err) {
@@ -62,7 +83,7 @@ export async function getAllIssues(projectKey, maxResults = 100) {
       key: i.key,
       summary: i.fields.summary,
       description: i.fields.description || "",
-      comments: (i.fields.comment?.comments || []).map(c => c.body).join("\n"),
+      comments: (i.fields.comment?.comments || []).map(c => extractTextFromADF(c.body)).filter(comment => comment.trim()).join("\n"),
       resolution: i.fields.resolution?.name || "Unresolved",
     }));
 
