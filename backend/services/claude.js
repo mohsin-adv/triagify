@@ -1,28 +1,39 @@
-import Anthropic from "@anthropic-ai/sdk";
-const claude = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
+import bedrockClient from "./bedrockClient.js";
+import { InvokeModelCommand } from "@aws-sdk/client-bedrock-runtime";
 
-export async function suggestResolution(queryIssue, similarIssues) {
-    const formattedIssues = similarIssues.map(
-        i => `Issue: ${i.key}\nSummary: ${i.text}\nResolution: ${i.resolution}\n`
-    ).join("\n---\n");
-
+export async function getResolutionSuggestion(issue, similarIssues) {
     const prompt = `
-You are a software triage assistant.
-A new issue has been reported:
+You are an AI JIRA assistant. A user reported this issue:
 
-"${queryIssue}"
+"${issue.summary}"
+"${issue.description}"
 
-Here are some similar historical issues and how they were resolved:
-${formattedIssues}
+Here are similar issues and their resolutions:
+${similarIssues.map((i, idx) => `[${idx + 1}] ${i.summary} → Resolution: ${i.resolution}`).join("\n")}
 
-Based on this information, summarize the most likely root cause and a recommended next step.
+Suggest likely root cause and next steps.
 `;
 
-    const response = await claude.messages.create({
-        model: "claude-3-5-sonnet-latest",
-        max_tokens: 500,
-        messages: [{ role: "user", content: prompt }],
+    const command = new InvokeModelCommand({
+        modelId: "anthropic.claude-3-sonnet-20240229-v1:0",
+        contentType: "application/json",
+        accept: "application/json",
+        body: JSON.stringify({
+            messages: [{ role: "user", content: prompt }],
+            max_tokens: 500,
+            anthropic_version: "bedrock-2023-05-31",
+        }),
     });
 
-    return response.content[0].text;
+    try {
+        const response = await bedrockClient.send(command);
+        const raw = new TextDecoder().decode(response.body);
+        const result = JSON.parse(raw);
+        const message = result.content?.[0]?.text || "(No response text found)";
+        console.log("🧠 Claude Suggestion:\n", message);
+        return message;
+    } catch (err) {
+        console.error("❌ Error calling Claude via Bedrock:", err);
+    }
 }
+
