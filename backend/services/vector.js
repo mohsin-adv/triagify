@@ -23,5 +23,5 @@ export async function findSimilarIssues(queryText) {
         similarity: cosineSimilarity(queryEmbedding, issue.embedding),
     }));
 
-    return scored.sort((a, b) => b.similarity - a.similarity).slice(0, 4); // top 3
+    return scored.sort((a, b) => b.similarity - a.similarity).slice(0, 4); // top 4
 }
