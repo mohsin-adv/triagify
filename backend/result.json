@@ -1,0 +1,3918 @@
+{
+  "issues": [
+    {
+      "key": "VDM-1888",
+      "summary": "Certificate for DbBacs-ip seems to disappear occasionally.",
+      "status": "With Support",
+      "description": {
+        "type": "doc",
+        "version": 1,
+        "content": [
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "When keying in DbBacs payments occasionally the certificate needed disappears from the options. Resulting in the certificate needing to be reinstalled."
+              }
+            ]
+          }
+        ]
+      },
+      "comments": "\nIs this happening on single machine or multiple?This seems like a Windows issue not DbBacs-ip. Our application simply uses Windows API service to fetch certificate available and uses it. It does not have any method which can delete the certificate. Could you please follow the below steps and check the system?  \nQuick Diagnostic Steps\n"
+    },
+    {
+      "key": "VDM-1885",
+      "summary": "e5.7 - smartsuite - tls1.0 and tls1.1 detected",
+      "status": "With Support",
+      "description": {
+        "type": "doc",
+        "version": 1,
+        "content": [
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Hi"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Our security team have detected tls1.0 and tls1.1 protocols being ran in programs"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "./node /e5d/v1home/web/HTTPServer/server/www"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "and"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "e5d        11594       1  0 09:53 pts/0    00:00:16 ./node /e5d/v1home/web/smartportal/index.js"
+              },
+              {
+                "type": "hardBreak"
+              },
+              {
+                "type": "text",
+                "text": "e5d        11634   11594  0 09:53 pts/0    00:00:08 api/java/bin/java -jar api/UpdateDigester/UpdateDigester.jar -ln Default -l UpdateDigester.Default.log -i api/LuceneIndex/Default  -jc jdbc:oracle:thin:@10.25.1.17:1521/v1e57d.cumbria.gov -ju dbarch -jp xxxxxx -p 33333 -t 30 -chunk 1000 -excl  -orderBy  ASC  -stringAsUTF8 0  run"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Is there anyway these unsupported protocols can be disabled?"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "many thanks, Jamie"
+              }
+            ]
+          }
+        ]
+      },
+      "comments": "Could you please share the full versions of HTTPS, NIS, and Web Portal that you are using?\nAlso, what OS are they using ?\nHi,It should be-OS - Red Hat Enterprise Linux release 8.10 (Ootpa)SmartPortal - 2021.0.0.11NIS - 2021.0.0.10archJSON - 2021.0 Build 000.000\n I’d like to propose two possible solutions:\nOption 1 – Upgrade:Upgrade to version 4.7.0.20, which includes a new node that enforces TLS 1.2 by default.\nOption 2 – Modification in Current files:Since the 2021 version is an unofficial release and we no longer perform upgrades on it, reverting to 4.7 might be cumbersome. As an alternative, we can modify certain configuration files to force the application to use TLS 1.2.\nTo proceed with this fix, please share the following files from the specified location.\n\nHi  , I have attached the requested files.Thanks.\n  Please find the attached files, I have modified it. Please ask them to replace the files on sever, restart and check.\n\nNOTE : I notice the original file were in text form, so I have attached the same format. Please remind them to convert it back to JS and check.\nAfter update,”Hi, partial success I'm afraid.\nOur security team have still detected it here\ne5w      1191994       1  0 14:23 ?        00:00:13 ./node /e5w/v1home/web/smartportal/index.jse5w      1192020 1191994  0 14:23 ?        00:00:05 api/java/bin/java -jar api/UpdateDigester/UpdateDigester.jar -ln Default -l UpdateDigester.Default.log -i api/LuceneIndex/Default  -jc jdbc:oracle:thin:@10.25.1.17:1521/v1e57w.cumbria.gov -ju dbarch -jp **** -p 35333 -t 30 -chunk 1000 -excl  -orderBy  ASC  -stringAsUTF8 0  run\n \nBut no longer detected here\n./node /e5w/v1home/web/HTTPServer/server/www”\n , I’ll get you file from here, as discussed “v1home/web/smartportal/index.js”\nPFA, index file. \n Please find the attached modified file   and ask them to check by replacing the old one.\nthanks  , updated the customer with new files.\nHi  ,It worked fine with the new files, thanks.\nJust to confirm, for the other solution you proposed. Do we need to upgrade NIS and web portal installers?\n It’s not required urgently at the moment, so you can take your time to plan. We recently released 4.7.0.20 which comes with latest node (tech upgrade) and other security fixes such as TLS too. Thus, keeping it up to date with technology used and any major security fixes in future which required more development time will be provided in 4.7 only. "
+    },
+    {
+      "key": "VDM-1882",
+      "summary": "Please review the log file",
+      "status": "With Support",
+      "description": {
+        "type": "doc",
+        "version": 1,
+        "content": [
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "V1 Def file changes for VAT Group change -please review the log file"
+              }
+            ]
+          }
+        ]
+      },
+      "comments": "Could you please give more details, about issue you are facing? Moreover, any changes to def files are handled by PS. Could you please connect with PS and give it a check?\n ,SI_DOC via MATC as it is going in error each time an invoice is printed, Out of the three def files amendments, one of them(SI_DOC.def), which linked to the printing of sales invoices ,the customer is facing an error in their e5 application while printing. I tried reverting the change and placing the original file back on their server, but this did not solve the issue.\nThe customer can change the status back to active; however, requesting another re-print sends the document type into error again.\nHi  ,\nCould you please send that def file? As per the following error \nGSZK        64:Number in format is not a valid number - (09250.009250.00) at line 853 of /e5/test/v1home/defs/SI_DOC.defGSZK        65:Unable to get name or value of a fieldGSZK        66:Number in format is not a valid number - (09250.009250.00) at line 953 of /e5/test/v1home/defs/SI_DOC.defGSZK        67:Unable to get name or value of a fieldGSZK        68:Output program was not run due to previous errors\nIt is not able to validate or find values in line 853 and line 953. Could you please confirm you are getting these values?\n Please find the def file\nHi  ,\nCould you please try this file and check   ?"
+    },
+    {
+      "key": "VDM-1880",
+      "summary": "User is unable to log into DbScanner due to error message",
+      "status": "Rejected",
+      "description": {
+        "type": "doc",
+        "version": 1,
+        "content": [
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "When trying to log into DbScanner they get the error messages attached. They have tried different users and all get the same error messages. You can log on when logged onto the server."
+              },
+              {
+                "type": "hardBreak"
+              },
+              {
+                "type": "text",
+                "text": "The DbLogin log doesn't register the user trying to log in."
+              }
+            ]
+          }
+        ]
+      },
+      "comments": "Mark Vale - mark.vale@oneadvanced.com commented:  Can you please close this Jira. The customer has updated us to tell us it's now working.\nCustomer resolved themself hence closing Jira"
+    },
+    {
+      "key": "VDM-1879",
+      "summary": "DbBacs sort code update",
+      "status": "Done",
+      "description": "",
+      "comments": ""
+    },
+    {
+      "key": "VDM-1871",
+      "summary": "Copilot POC for medium vulnerabilities ",
+      "status": "In Development",
+      "description": {
+        "type": "doc",
+        "version": 1,
+        "content": [
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "copilot to resolve 'Medium' vulnerabilities which are open for all products. Also, use co-pilot for generating module knowledge. "
+              }
+            ]
+          }
+        ]
+      },
+      "comments": ""
+    },
+    {
+      "key": "VDM-1870",
+      "summary": "Db Capture gives error after windows 11 update",
+      "status": "Resolved",
+      "description": {
+        "type": "doc",
+        "version": 1,
+        "content": [
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "There are a lot of customers who are facing this issue after windows 11 update."
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "The update is - 2025-09 Cumulative Update for Windows 11 Version 24H2 for x64-based Systems (KB5065426) (26100.6584)"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Most of them are getting the same error. (attached)"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Once they rolled back to previous version of Windows, it was working fine."
+              }
+            ]
+          }
+        ]
+      },
+      "comments": "  Not able to find any attachment. So not sure about error.After updating windows 11 please check TLS version it should be 1.2 instead of 1.0 and 1.1.cc \n\nThis is the script which enable 1.2 and disable 1.0. and 1.1.  \nSince there’s no update after giving the support information, this doesn’t seem to be a P1. Hence moving the priority to P2\nFY    \nThe solution was provided, and we haven't received any response from the customer or support team. Since there has been no update for over a month, we are closing this ticket."
+    },
+    {
+      "key": "VDM-1868",
+      "summary": "Pen Test support for License server ",
+      "status": "Done",
+      "description": "",
+      "comments": ""
+    },
+    {
+      "key": "VDM-1867",
+      "summary": "DbBacs sort code update",
+      "status": "Done",
+      "description": "",
+      "comments": ""
+    },
+    {
+      "key": "VDM-1866",
+      "summary": "The DbCapture software license did not renew",
+      "status": "Development Required",
+      "description": {
+        "type": "doc",
+        "version": 1,
+        "content": [
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "The DbCapture license did not renew even though the Auto Renew was ticked."
+              }
+            ]
+          }
+        ]
+      },
+      "comments": "Hi  ,This is needed development. Can you please raise problem for this and tag this Jira please?\nHi  I have raised a problem case. Thanks"
+    },
+    {
+      "key": "VDM-1865",
+      "summary": "V1 is not updating Ebis",
+      "status": "Rejected",
+      "description": {
+        "type": "doc",
+        "version": 1,
+        "content": [
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "V1 receives a credit and sends 2 XML files. 1 to OA and 1 to EBIS to update both. "
+              },
+              {
+                "type": "hardBreak"
+              },
+              {
+                "type": "text",
+                "text": "The file that is sent to OA is correct and updates correctly."
+              },
+              {
+                "type": "hardBreak"
+              },
+              {
+                "type": "text",
+                "text": "The file that is sent to Ebis appears to be missing 2 lines at the bottom of the XML meaning that it isn't updating the information."
+              }
+            ]
+          }
+        ]
+      },
+      "comments": "Could you please provide more details as in what modules of V1 is used, which version and steps to create that XML?Also, this seems like PS issue. \nRejecting this because this is an OA issue."
+    },
+    {
+      "key": "VDM-1863",
+      "summary": "DBbacs - Check Websigner and Esigner dependency  ",
+      "status": "Done",
+      "description": "",
+      "comments": ""
+    },
+    {
+      "key": "VDM-1859",
+      "summary": "KS Task - V1DM - Q3",
+      "status": "In Development",
+      "description": {
+        "type": "doc",
+        "version": 1,
+        "content": [
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "To review all the resolved and rejected card, analysis the card and make sure we have a proper documentation to ensure support has the same buyin."
+              }
+            ]
+          }
+        ]
+      },
+      "comments": ""
+    },
+    {
+      "key": "VDM-1857",
+      "summary": "DbBacs sort code update",
+      "status": "Done",
+      "description": "",
+      "comments": ""
+    },
+    {
+      "key": "VDM-1856",
+      "summary": "Issues with emails not being send from dBarchive",
+      "status": "Resolved",
+      "description": {
+        "type": "doc",
+        "version": 1,
+        "content": [
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "FAO Jeff "
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "I have been working with V1 team Mark Vale and he can't see any error from the logs, the email are successfully coming from dBarchive , however they don't appear in Financial . I have checked everything , there are no Logged transaction in error , no unprocessed invoices and no web transactions, I can only see 7 cancelled transaction from dBarchive for today."
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Can you please check smart mail for Excelcare and Cornish Bakery because they are the ones reporting the issue ."
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "TIA "
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Maria"
+              }
+            ]
+          }
+        ]
+      },
+      "comments": "Hi  ,This case seems integration issue with E5.7, the configuration between smart mail and e5 might be broken. Can you please contact to “Steve Findlow” as he is the right person who is looking for the integration stuff.Thanks.   \ne5messaging change backed out\nissue resolved\nClosing as issue resolved"
+    },
+    {
+      "key": "VDM-1853",
+      "summary": "SQL 2022 compatibility with 4.7.0.0.20 - Development",
+      "status": "Done",
+      "description": {
+        "type": "doc",
+        "version": 1,
+        "content": [
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Development work for SQL 2022 compatibility."
+              }
+            ]
+          }
+        ]
+      },
+      "comments": ""
+    },
+    {
+      "key": "VDM-1852",
+      "summary": "DBCapture Administration Client installation issue on Windows 11",
+      "status": "Rejected",
+      "description": {
+        "type": "doc",
+        "version": 1,
+        "content": [
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Users cannot use the DBCapture Administration Client installed on Windows 11, but it is fine when installed on Windows 10."
+              },
+              {
+                "type": "hardBreak"
+              },
+              {
+                "type": "text",
+                "text": "We have installed it manually on a Windows 10 device and on a Windows 11 device in exactly the same way, buy when the user tries to use DBCapture the receive the attached error."
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "We have checked the config files for both installs and both are the same, please can you advise?"
+              }
+            ]
+          }
+        ]
+      },
+      "comments": "Hi  ,Not able to find attached error. Also please share event logs when error occurs and DbCapture full version.Thanks.\nHi  I have attached the screenshot of the error message. I shall get them to send in the event logs.\nHI  ,Now please confirm the all DBs versions, Are those TCP or HTTP? Please send Event logs.\nHi  I have attached the event log and they have said that they are using DB Capture Admin version 4.1.0.0. I am going to go back to them and tell them that it never has and never will be tested with Windows 11 as it was out of support Sep 22 and in Limited Support since Mar 21.\n This Event log has only 2 dates entry 5th August and 8th July. There is no specific .net framing related. DBCapture 4.1.0.0 is not supported and it will not work on windows 11 as 11 has upgraded TLS versions which will not compatible with 4.1 DbCapture version.\nIts 4.1 version and we are not supporting it.  JIRA has been closed\n"
+    },
+    {
+      "key": "VDM-1851",
+      "summary": "Vulnerability report findings- III",
+      "status": "Done",
+      "description": {
+        "type": "doc",
+        "version": 1,
+        "content": [
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "inlineCard",
+                "attrs": {
+                  "url": "https://advancedcsg.atlassian.net/browse/VDM-1822"
+                }
+              },
+              {
+                "type": "text",
+                "text": " "
+              },
+              {
+                "type": "hardBreak"
+              },
+              {
+                "type": "hardBreak"
+              },
+              {
+                "type": "text",
+                "text": "Rico has a Vulnerability report that highlight risk on the V1 installation. We need guidance on how to patch these vulnerabilities."
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Issue\tSeverity\tRecommended Action:"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Out-of-date Version (AngularJS)\t"
+              },
+              {
+                "type": "hardBreak"
+              },
+              {
+                "type": "text",
+                "text": "High\t"
+              },
+              {
+                "type": "hardBreak"
+              },
+              {
+                "type": "text",
+                "text": "Review usage, upgrade AngularJS if possible"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "[Possible] Cross-site Scripting\t"
+              },
+              {
+                "type": "hardBreak"
+              },
+              {
+                "type": "text",
+                "text": "Medium\t"
+              },
+              {
+                "type": "hardBreak"
+              },
+              {
+                "type": "text",
+                "text": "Review endpoint, sanitize input/output"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "[Possible] Sensitive Data Exposure - JDBC Connection String\t"
+              },
+              {
+                "type": "hardBreak"
+              },
+              {
+                "type": "text",
+                "text": "Medium\t"
+              },
+              {
+                "type": "hardBreak"
+              },
+              {
+                "type": "text",
+                "text": "Confirm no sensitive data exposed"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "For already developed part its in regression testing."
+              }
+            ]
+          }
+        ]
+      },
+      "comments": "Hi  Can you please confirm TCP/HTTP version? Thanks.\nHi  ,\nFor v1 applications?\nYes  , V1 has 2 main release versions TCP and HTTP. We are providing release mostly on http but TCP version is also there.\nHi  , still waiting for the customer to get back to me.\nHi  I have attached the document the customer sent to us.\nMSIs are added at  \\\\ADVFILESTORE\\Departments\\Engineering\\Development (V1)\\Distribution\\Release-4.7\\Servers\\SmartSuite\\4.7.0.21__VDM-1826  \nHi  , customer has been updated. Waiting to hear back from them."
+    },
+    {
+      "key": "VDM-1850",
+      "summary": "Cedar is not processing with correct address.",
+      "status": "Rejected",
+      "description": {
+        "type": "doc",
+        "version": 1,
+        "content": [
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "The ‘TO Address’ is missing for below invoices: DI00003653 and DI00003691"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Initially both the invoices went in error in Cedar. When User had corrected and submitted, the ‘TO Address’ is not populating."
+              },
+              {
+                "type": "hardBreak"
+              },
+              {
+                "type": "text",
+                "text": "Invoices for the customer CL0112 is going in error in Cedar(Screenshot) even though it was raised with correct 'TO Address'."
+              },
+              {
+                "type": "hardBreak"
+              },
+              {
+                "type": "text",
+                "text": "But still it went in Cedar. To process these, business used to put dot(.) in the field of address unknowingly. The address exists in Financials but not being output from there to the txt reports (attached)"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Can you please advise here why the cedar is not processing with correct address."
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "TCG are on an old release of e5. As they are migrating to new system if this issue addressed in a newer release of e5 and is there any workaround for them ?"
+              }
+            ]
+          }
+        ]
+      },
+      "comments": "This belongs to E5 project thus rejecting this card.CC: , , "
+    },
+    {
+      "key": "VDM-1847",
+      "summary": "Multiple users are unable to login to SMart Retrieve",
+      "status": "Resolved",
+      "description": {
+        "type": "doc",
+        "version": 1,
+        "content": [
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "\"End user (Bradley Cannadine) cannot log into V1 smart retrieve. A few other colleagues have also reported the same issue, log in failures. The steps followed are as follows: We located the file GCGMAP028 - Found the service - userLockedList.json, made a copy, deleted the original - went to V1NodeIntegrationServer - stop started the service. This has not resolved the issue for users.\""
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "When the users try to login, they are not able to, until someone deletes the userlockedlist.json and re-start the NIS services."
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "I'm attaching the log files for ArchJson,NIS,and db login."
+              }
+            ]
+          }
+        ]
+      },
+      "comments": "Hi  , I’ll send the logs file in a while.\n  Please find the updated LoginRoute.js file attached. Kindly follow the steps below:\n\nIf the error occurs again, please share the latest log(NIS) files with me. For your reference, I’ve included logs inside the LoginRoute.js file as well.\nLet me know once the steps are completed or if any issues arise.\n\n\nHi  , thank you.Do you mean re-start services file instead of RoomService file?\nTO be specific, did you mean V1 re-start services file?\n  I believe there is a script named RoomService that contains all the service restart commands, executing them one by one in a specific order. Or we can do it manually.\nHi As per your update on 21st July. The customer has asked some questions.\n\nRegards\nMark\nHi  1. This is not yet a permanent fix. However, I have not observed any suspicious issues so far. To better investigate the root cause, I have added additional logs for deeper analysis.\n\n\n\nHi  ,  any update?\nMark Vale - mark.vale@oneadvanced.com commented:  Case CS0096088\nGet confirmation from support to closed the JIRA.\nClosed"
+    },
+    {
+      "key": "VDM-1846",
+      "summary": "Arbuthnot - Smartmail issue with emails without attachments",
+      "status": "Done",
+      "description": {
+        "type": "doc",
+        "version": 1,
+        "content": [
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Emails with no attachment or emails with non PDF attachments are being moved into the Processed folder rather than the Exceptions folder."
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Also, all new smartmail msi's are not utilising latest node.exe (22.15.0) and come with old version of node.exe 10.15.0."
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "separate issue where if new node.exe is used with latest smartmail install then it will not run."
+              }
+            ]
+          }
+        ]
+      },
+      "comments": " \nI have added the fix and updated MSI on distrib V1 Smart Mail v2021.0.0.17\nHi  , Steve has confirmed this is working, thanks\nAsyaari Muhammad - asyaari.muhammad@oneadvanced.com commented:  Steve has implemented  V1 Smart Mail v2021.0.0.17 and confirmed working"
+    },
+    {
+      "key": "VDM-1845",
+      "summary": "Arbuthnot - Smartmail issue with emails without attachments",
+      "status": "Development Required",
+      "description": {
+        "type": "doc",
+        "version": 1,
+        "content": [
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Emails with no attachment or emails with non PDF attachments are being moved into the Processed folder rather than the Exceptions folder."
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Also, all new smartmail msi's are not utilising latest node.exe (22.15.0) and come with old version of node.exe 10.15.0."
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "separate issue where if new node.exe is used with latest smartmail install then it will not run."
+              }
+            ]
+          }
+        ]
+      },
+      "comments": "Hi  ,\nPlease create problem card for this issue. I am able to recreate the issue thus I’ll have to do some code changes to fix this. \nAsyaari Muhammad - asyaari.muhammad@oneadvanced.com commented:  Thanks Sejal, now created under - https://advancedcsg.atlassian.net/browse/VDM-1846\nAsyaari Muhammad - asyaari.muhammad@oneadvanced.com commented:  Steve has confirmed this is working, thanks."
+    },
+    {
+      "key": "VDM-1844",
+      "summary": "RCA and Debug of Graph Mail component of Smartmail",
+      "status": "With Support",
+      "description": {
+        "type": "doc",
+        "version": 1,
+        "content": [
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "In relation to smartmail hanging when attempting to connect to office365 mailboxes. Intermittent issue but once it hangs it will need to be force killed and restarted."
+              }
+            ]
+          }
+        ]
+      },
+      "comments": "Hi , any updates on this?\nHi   Its converted into a problem and need code changes, So Its added in backlog for now and we will plan in next sprint from august.\nAsyaari Muhammad - asyaari.muhammad@oneadvanced.com commented:  Hi @Moshin any updates on this?\nAsyaari Muhammad - asyaari.muhammad@oneadvanced.com commented:  Hi @Moshin any updates on this?\nHi  ,In this file I address “move” and iteration operation both. Please place this “graphClient.js” again and check. If there any issue occurs please share the logs.\nThanks\nHi  , .please confirm the version. It is 5.0.0.15.Thanks\nAsyaari Muhammad - asyaari.muhammad@oneadvanced.com commented:  Hi @Mohsin, with the graph client.js it has hanged as before, here is the end of the system and audit log from the customer, will attach snip to JIRA\nSuccessful attachment sync from ServiceNow\nAsyaari Muhammad - asyaari.muhammad@oneadvanced.com commented:  Problem Task Number PTASK0010774 has been updated\n - updated with the snip of latest system and audit log after it has hanged \n This is might not perfect solution yet but, I minimized the cycle efforts to the 100 and added logs. lets see and please shared me the logs again. Thanks.File name graphCLientNew.js\n\n This will stop asking input and more sure to resolve the issue. If any new oddity appears, share that logs. Thanks\n Here It seems that code is working perfectly but the crash cause might be any of this.1. internet /DNS outage2. Network proxy or firewall blocking the request.Please confirm with their IT team for this.\nWe completely understand your concern — the SmartMail process must be resilient to intermittent network interruptions and should never hang indefinitely.  \n\n\n \n\nThe process continuation code crashing the app, now I have modify that. Lets try this. \n  Expected Improvements:\n"
+    },
+    {
+      "key": "VDM-1843",
+      "summary": "Vulnerability report findings- II",
+      "status": "Done",
+      "description": {
+        "type": "doc",
+        "version": 1,
+        "content": [
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "inlineCard",
+                "attrs": {
+                  "url": "https://advancedcsg.atlassian.net/browse/VDM-1822"
+                }
+              },
+              {
+                "type": "text",
+                "text": " "
+              },
+              {
+                "type": "hardBreak"
+              },
+              {
+                "type": "hardBreak"
+              },
+              {
+                "type": "text",
+                "text": "Rico has a Vulnerability report that highlight risk on the V1 installation. We need guidance on how to patch these vulnerabilities."
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Issue\tSeverity\tRecommended Action:"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Out-of-date Version (AngularJS)\t"
+              },
+              {
+                "type": "hardBreak"
+              },
+              {
+                "type": "text",
+                "text": "High\t"
+              },
+              {
+                "type": "hardBreak"
+              },
+              {
+                "type": "text",
+                "text": "Review usage, upgrade AngularJS if possible"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Out-of-date Version (jQuery Validation)\t"
+              },
+              {
+                "type": "hardBreak"
+              },
+              {
+                "type": "text",
+                "text": "High\t"
+              },
+              {
+                "type": "hardBreak"
+              },
+              {
+                "type": "text",
+                "text": "Update jQuery Validation to latest version"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Out-of-date Version (Underscore.js)\t"
+              },
+              {
+                "type": "hardBreak"
+              },
+              {
+                "type": "text",
+                "text": "High\t"
+              },
+              {
+                "type": "hardBreak"
+              },
+              {
+                "type": "text",
+                "text": "Upgrade or replace Underscore.js"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "[Possible] Cross-site Scripting\t"
+              },
+              {
+                "type": "hardBreak"
+              },
+              {
+                "type": "text",
+                "text": "Medium\t"
+              },
+              {
+                "type": "hardBreak"
+              },
+              {
+                "type": "text",
+                "text": "Review endpoint, sanitize input/output"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "[Possible] Sensitive Data Exposure - JDBC Connection String\t"
+              },
+              {
+                "type": "hardBreak"
+              },
+              {
+                "type": "text",
+                "text": "Medium\t"
+              },
+              {
+                "type": "hardBreak"
+              },
+              {
+                "type": "text",
+                "text": "Confirm no sensitive data exposed"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "HTTP Strict Transport Security (HSTS) Policy Not Enabled\t"
+              },
+              {
+                "type": "hardBreak"
+              },
+              {
+                "type": "text",
+                "text": "Medium\t"
+              },
+              {
+                "type": "hardBreak"
+              },
+              {
+                "type": "text",
+                "text": "Enable HSTS in web server configuration"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Out-of-date Version (Bootstrap)\t"
+              },
+              {
+                "type": "hardBreak"
+              },
+              {
+                "type": "text",
+                "text": "Medium\t"
+              },
+              {
+                "type": "hardBreak"
+              },
+              {
+                "type": "text",
+                "text": "Upgrade Bootstrap to secure version"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Out-of-date Version (jQuery UI Autocomplete)\t"
+              },
+              {
+                "type": "hardBreak"
+              },
+              {
+                "type": "text",
+                "text": "Medium\t"
+              },
+              {
+                "type": "hardBreak"
+              },
+              {
+                "type": "text",
+                "text": "Upgrade jQuery UI"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Out-of-date Version (jQuery UI Dialog)\t"
+              },
+              {
+                "type": "hardBreak"
+              },
+              {
+                "type": "text",
+                "text": "Medium\t"
+              },
+              {
+                "type": "hardBreak"
+              },
+              {
+                "type": "text",
+                "text": "Upgrade jQuery UI"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Out-of-date Version (jQuery UI Tooltip)\t"
+              },
+              {
+                "type": "hardBreak"
+              },
+              {
+                "type": "text",
+                "text": "Medium\t"
+              },
+              {
+                "type": "hardBreak"
+              },
+              {
+                "type": "text",
+                "text": "Upgrade jQuery UI"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Out-of-date Version (jQuery)\t"
+              },
+              {
+                "type": "hardBreak"
+              },
+              {
+                "type": "text",
+                "text": "Medium\t"
+              },
+              {
+                "type": "hardBreak"
+              },
+              {
+                "type": "text",
+                "text": "Upgrade jQuery"
+              }
+            ]
+          }
+        ]
+      },
+      "comments": "Hi  Can you please confirm TCP/HTTP version? Thanks.\nHi  ,\nFor v1 applications?\nYes  , V1 has 2 main release versions TCP and HTTP. We are providing release mostly on http but TCP version is also there.\nHi  , still waiting for the customer to get back to me.\nIts in regresssion\nJquery-ui, Bootstrap, Jquery animation , validation, underscore and AngularJS has been upgraded, needs testing.XSS and Conn string is in development.So for the remaining work clone has been created https://advancedcsg.atlassian.net/browse/VDM-1851\n"
+    },
+    {
+      "key": "VDM-1842",
+      "summary": "Pen Test support and Meeting",
+      "status": "Done",
+      "description": {
+        "type": "doc",
+        "version": 1,
+        "content": [
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Pen Test support and queries"
+              }
+            ]
+          }
+        ]
+      },
+      "comments": ""
+    },
+    {
+      "key": "VDM-1841",
+      "summary": "DbBacs sort code update",
+      "status": "Done",
+      "description": "",
+      "comments": ""
+    },
+    {
+      "key": "VDM-1837",
+      "summary": "High - Known Vulnerable or Outdated Package",
+      "status": "Done",
+      "description": {
+        "type": "doc",
+        "version": 1,
+        "content": [
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Attacker identifies a weak component through scanning or manual analysis, then customises the exploit as needed to execute the attack. It gets more difficult if the affected component is used deep in the application."
+              }
+            ]
+          }
+        ]
+      },
+      "comments": "Solution of this issue will be cover in .\nTesting has been completed b security team."
+    },
+    {
+      "key": "VDM-1836",
+      "summary": "High - Session Fixation",
+      "status": "Done",
+      "description": {
+        "type": "doc",
+        "version": 1,
+        "content": [
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "An attacker who gain's access to an existing session token will be able to gain privileges and assume identity of the affected user."
+              }
+            ]
+          }
+        ]
+      },
+      "comments": "."
+    },
+    {
+      "key": "VDM-1835",
+      "summary": "High - HTTP Host Header Poisoning",
+      "status": "Done",
+      "description": {
+        "type": "doc",
+        "version": 1,
+        "content": [
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "The application trusted the contents of the Host HTTP request header supplied by the client.   Request headers that could be fully controlled by an attacker should be considered untrusted and not used to build any part of the response.  An attacker sending a malicious Host header with a request may be able to perform a cache poisoning attack; depending on the caching options sent in the response this could affect just the browser of an end-user receiving the request, or if a caching proxy is used the attacker may be able to perform the cache poisoning attack against future visitors to the site.  Another vector for Host header poisoning is the password reset request, where an attacker may be able to generate a poisoned password reset link. When clicked by a legitimate user this would pass the reset token to the attacker instead, allowing the attacker to reset the password of the targeted user account.  This vulnerability only affected subdomains of `ahruatpentest.uat.cloudhrmt.oneadvanced.io`. If the host header was changed to any other domain, the request would fail.   However, if changed to any arbitrary and non-existent subdomain, the web server  used the arbitrary host header, allow the user to complete the authentication process and redirect the user to the value provided in the host header.   The server then returned HTTP error 500 to any subsequent request, as it was using the poisoned header value."
+              }
+            ]
+          }
+        ]
+      },
+      "comments": "Closing card as this has been resolved in attack forge and the fix will be included in next build release with all other vulnerabilities."
+    },
+    {
+      "key": "VDM-1838",
+      "summary": "invoices stuck on DB Capture in exported not on Advanced",
+      "status": "Resolved",
+      "description": {
+        "type": "doc",
+        "version": 1,
+        "content": [
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Invoices get upload via DBcapture but they don't come into Financial. "
+              },
+              {
+                "type": "hardBreak"
+              },
+              {
+                "type": "text",
+                "text": "dBcapture team already checked and no issue from their side."
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "I have checked Task queue and no failed tasks, checked for cancelled tasks and nothing, BTAR 0 and executors active."
+              },
+              {
+                "type": "hardBreak"
+              },
+              {
+                "type": "text",
+                "text": "Checked in MGBA for In Error Invoices but nothing, Processed from today but issues started last Friday. "
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Nothing in Unprocessed scanned Invoices. "
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Can I have please some help with this issue?"
+              }
+            ]
+          }
+        ]
+      },
+      "comments": " Its eFinancial issue, In description its mention that “dBcapture team already checked and no issue from their side”. If something can found on DbCapture side or integration side Steve Findlow or V1 team will help to look but it needs to be check or investigate by Efin team first. Thanks. \n Have moved this from V1DM to OA for intial investigation  \n\nCC-    \nHi  and  after investigating from Financial side we have noticed that the issue is from dBcapture, emails are coming to Financial without an attachments so this issue is not with Financial.\nI have spoken with Asyaari and Praveen they are looking at this case now.\nMaria\nFurther details are required regarding the integration and related issues. and   are looking into it. cc  \nAny updates on this issue?I would recommend revisiting its priority, as it doesn’t appear to be a P1.     \nHi  \nWe had to revert back to an older version of smartmail for sendmail to work but this then had issues with polling. They now have the latest smartmail version 5.0.0.15\nSendmail version 5.0.0.15 did not include attachments causing the images not be to added to financials. \n  will be added the smartmail logs and docid folder with exp.log containing error \nHi  , please find attached the logs for Smart Mail, docid folder which has failed and config.local file (Smart Mail).Let me know if you need anything else. I’m connected to customer right now.\nThe Smart mail configuration has been updated, and documents are now exporting successfully, with emails being sent as expected.  is currently confirming with the customer whether the issue has been fully resolved.\n  \nHi  , the customer has confirmed the issue is resolved.Thank you much.\nWe can call this Jira ticket off.\nThis issue was related to an integration configuration. The PS team typically handles such issues. Special thanks to Steve Findlow for his support in resolving it.    \nResolved"
+    },
+    {
+      "key": "VDM-1833",
+      "summary": "issue with smartmail hanging",
+      "status": "Development Required",
+      "description": {
+        "type": "doc",
+        "version": 1,
+        "content": [
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "require debugging and further troubleshooting"
+              }
+            ]
+          }
+        ]
+      },
+      "comments": "Hi  ,  I havent started on it. It can be start on next week onwards. This will be the only priority after my current work.\nHi  , thanks for update, will feedback to customer.\nCan you close this T3 please as we have the problem T3 under  \nHi  , this is in status of “Development required”. I ll close once this problem get resolved.Thanks\n[like]  Asyaari Muhammad reacted to your message:\nAsyaari Muhammad - asyaari.muhammad@oneadvanced.com commented:  Hi @Mohsin, unfortunately that new file causes smartmail to crash immediately and does not run.\nSuccessful attachment sync from ServiceNow\nSuccessful attachment sync from ServiceNow\nAsyaari Muhammad - asyaari.muhammad@oneadvanced.com commented:  Hi @Mohsin, it has hanged with the latest version but Mike said he is able to hit 'Enter', as he is running it in powershell, and it carries on. From the system log file for 29/09. {\"level\":\"info\",\"message\":\"DbAuthorise_Query finished \",\"timestamp\":\"2025-09-29 20:15:30\"} {\"level\":\"info\",\"message\":\"mailbox cycle complete - checking should cycle again\",\"timestamp\":\"2025-09-29 20:15:30\"} {\"level\":\"info\",\"message\":\"about to run mail box processing for the 455 time\",\"timestamp\":\"2025-09-29 20:15:30\"} {\"level\":\"info\",\"message\":\"Processing DbAuthorise_Accept run 455\",\"timestamp\":\"2025-09-29 20:16:30\"} {\"level\":\"info\",\"message\":\"DbAuthorise_Accept : Calling Graph Processor for reading Emails\",\"timestamp\":\"2025-09-29 20:16:30\"} {\"level\":\"info\",\"message\":\"Token received\",\"timestamp\":\"2025-09-29 20:16:31\"} {\"level\":\"info\",\"message\":\"DbAuthorise_Accept : Refresh Token Recieved\",\"timestamp\":\"2025-09-29 20:16:31\"} {\"level\":\"info\",\"message\":\"DbAuthorise_Accept :  | Start getMailMessages; cycle=5642814\",\"timestamp\":\"2025-09-29 20:16:31\"} {\"level\":\"audit\",\"message\":\"Folder found Processed\",\"timestamp\":\"2025-09-29 20:16:31\"} {\"level\":\"info\",\"message\":\"DbAuthorise_Accept :  | Folder found \"Processed\" -\u003E AAMkADU2NDkyYmIwLWQ1NzUtNDJjZC1hNWFjLWZiZjllMjY2MDQ4MQAuAAAAAAAlxqcjbpYuRKUe-YSYbrnRAQC2G7ynk6BIRJQ3UaIsZ-ZfAAAAAJTLAAA=\",\"timestamp\":\"2025-09-29 20:16:31\"} {\"level\":\"info\",\"message\":\"DbAuthorise_Accept :  | Resolved moveInvalid \"Processed\" -\u003E AAMkADU2NDkyYmIwLWQ1NzUtNDJjZC1hNWFjLWZiZjllMjY2MDQ4MQAuAAAAAAAlxqcjbpYuRKUe-YSYbrnRAQC2G7ynk6BIRJQ3UaIsZ-ZfAAAAAJTLAAA=\",\"timestamp\":\"2025-09-29 20:16:31\"} {\"level\":\"audit\",\"message\":\"Folder found Processed\",\"timestamp\":\"2025-09-29 20:16:31\"} {\"level\":\"info\",\"message\":\"DbAuthorise_Accept :  | Folder found \"Processed\" -\u003E AAMkADU2NDkyYmIwLWQ1NzUtNDJjZC1hNWFjLWZiZjllMjY2MDQ4MQAuAAAAAAAlxqcjbpYuRKUe-YSYbrnRAQC2G7ynk6BIRJQ3UaIsZ-ZfAAAAAJTLAAA=\",\"timestamp\":\"2025-09-29 20:16:31\"} {\"level\":\"info\",\"message\":\"DbAuthorise_Accept :  | Resolved moveValid \"Processed\" -\u003E AAMkADU2NDkyYmIwLWQ1NzUtNDJjZC1hNWFjLWZiZjllMjY2MDQ4MQAuAAAAAAAlxqcjbpYuRKUe-YSYbrnRAQC2G7ynk6BIRJQ3UaIsZ-ZfAAAAAJTLAAA=\",\"timestamp\":\"2025-09-29 20:16:31\"} {\"level\":\"info\",\"message\":\"DbAuthorise_Accept : Now checking for messgaes\",\"timestamp\":\"2025-09-29 20:16:31\"} {\"level\":\"info\",\"message\":\"DbAuthorise_Accept :  | iterate() -\u003E start\",\"timestamp\":\"2025-09-29 20:16:31\"} {\"level\":\"info\",\"message\":\"DbAuthorise_Accept :  | iterate() -\u003E done\",\"timestamp\":\"2025-09-29 20:16:31\"} {\"level\":\"audit\",\"message\":\"Completed iteration \",\"timestamp\":\"2025-09-29 20:16:31\"} It has hung at this point. The audit.log shows. {\"level\":\"audit\",\"message\":\"Completed iteration \",\"timestamp\":\"2025-09-29 20:15:14\"} {\"level\":\"audit\",\"message\":\"Folder found Processed\",\"timestamp\":\"2025-09-29 20:15:20\"} {\"level\":\"audit\",\"message\":\"Folder found Processed\",\"timestamp\":\"2025-09-29 20:15:20\"} {\"level\":\"audit\",\"message\":\"Completed iteration \",\"timestamp\":\"2025-09-29 20:15:20\"} {\"level\":\"audit\",\"message\":\"Folder found Processed\",\"timestamp\":\"2025-09-29 20:15:25\"} {\"level\":\"audit\",\"message\":\"Folder found Processed\",\"timestamp\":\"2025-09-29 20:15:25\"} {\"level\":\"audit\",\"message\":\"Completed iteration \",\"timestamp\":\"2025-09-29 20:15:25\"} {\"level\":\"audit\",\"message\":\"Folder found Processed\",\"timestamp\":\"2025-09-29 20:16:31\"} {\"level\":\"audit\",\"message\":\"Folder found Processed\",\"timestamp\":\"2025-09-29 20:16:31\"} {\"level\":\"audit\",\"message\":\"Completed iteration \",\"timestamp\":\"2025-09-29 20:16:31\"} Killing the node doesn't reset the command to the prompt, is there something else locking it open. When I hit return it does \"complete\" like it was waiting for input. Hope this might help\nSuccessful attachment sync from ServiceNow\nAsyaari Muhammad - asyaari.muhammad@oneadvanced.com commented:  Hi @Moshin With the new client it's just crashed after 1 loop. Here's the error from the system.log {\"level\":\"audit\",\"message\":\"Completed iteration \",\"timestamp\":\"2025-10-01 11:05:01\"} {\"level\":\"info\",\"message\":\"DbAuthorise_Query :  | flush tail batch -\u003E empty\",\"timestamp\":\"2025-10-01 11:05:06\"} {\"level\":\"info\",\"message\":\"DbAuthorise_Query :  | End getMailMessages (released in-flight)\",\"timestamp\":\"2025-10-01 11:05:06\"} {\"level\":\"info\",\"message\":\"Completed processing mails\",\"timestamp\":\"2025-10-01 11:05:06\"} {\"level\":\"info\",\"message\":\"DbAuthorise_Query : FINISHED run\",\"timestamp\":\"2025-10-01 11:05:06\"} {\"level\":\"info\",\"message\":\"DbAuthorise_Query finished \",\"timestamp\":\"2025-10-01 11:05:06\"} {\"level\":\"info\",\"message\":\"mailbox cycle complete - checking should cycle again\",\"timestamp\":\"2025-10-01 11:05:06\"} {\"level\":\"info\",\"message\":\"about to run mail box processing for the 1 time\",\"timestamp\":\"2025-10-01 11:05:06\"} {\"level\":\"info\",\"message\":\"Processing DbAuthorise_Accept run 1\",\"timestamp\":\"2025-10-01 11:06:06\"} {\"level\":\"info\",\"message\":\"DbAuthorise_Accept : Calling Graph Processor for reading Emails\",\"timestamp\":\"2025-10-01 11:06:06\"} {\"level\":\"error\",\"message\":\"Error in fetching token Error: getaddrinfo ENOTFOUND login.microsoftonline.com login.microsoftonline.com:443\",\"timestamp\":\"2025-10-01 11:06:17\"}\nAsyaari Muhammad - asyaari.muhammad@oneadvanced.com commented:  Hi @Mohsin, thanks. I have asked them to check what you mention with their IT. Customer is currently using version supplied on Sept 15: Node.exe hung Saturday 04/10/2025 13:15:25 after 3471 repeats after checking the DbAuthorise_Query mailbox. There was nothing in the mailbox for it to have processed. On killing the SmartMail node, it returned to the command prompt. {\"level\":\"info\",\"message\":\"Processing DbAuthorise_Reject run 3471\",\"timestamp\":\"2025-10-04 13:15:19\"} {\"level\":\"info\",\"message\":\"DbAuthorise_Reject : Calling Graph Processor for reading Emails\",\"timestamp\":\"2025-10-04 13:15:19\"} {\"level\":\"info\",\"message\":\"Token received\",\"timestamp\":\"2025-10-04 13:15:19\"} {\"level\":\"info\",\"message\":\"DbAuthorise_Reject : Refresh Token Recieved\",\"timestamp\":\"2025-10-04 13:15:19\"} {\"level\":\"info\",\"message\":\"DbAuthorise_Reject :  | Start getMailMessages; cycle=5651866\",\"timestamp\":\"2025-10-04 13:15:19\"} {\"level\":\"audit\",\"message\":\"Folder found Processed\",\"timestamp\":\"2025-10-04 13:15:19\"} {\"level\":\"info\",\"message\":\"DbAuthorise_Reject :  | Folder found \"Processed\" -\u003E AAMkADYxYmM5N2Y2LTE4M2YtNGY4ZS1iM2FmLWVlNWZlMDQ5MTFkMAAuAAAAAACzaN3LCRO2Q4cNCZX-qTKIAQCBXkEtoOPEQYFOaud26n_uAAAAAH74AAA=\",\"timestamp\":\"2025-10-04 13:15:19\"} {\"level\":\"info\",\"message\":\"DbAuthorise_Reject :  | Resolved moveInvalid \"Processed\" -\u003E AAMkADYxYmM5N2Y2LTE4M2YtNGY4ZS1iM2FmLWVlNWZlMDQ5MTFkMAAuAAAAAACzaN3LCRO2Q4cNCZX-qTKIAQCBXkEtoOPEQYFOaud26n_uAAAAAH74AAA=\",\"timestamp\":\"2025-10-04 13:15:19\"} {\"level\":\"audit\",\"message\":\"Folder found Processed\",\"timestamp\":\"2025-10-04 13:15:20\"} {\"level\":\"info\",\"message\":\"DbAuthorise_Reject :  | Folder found \"Processed\" -\u003E AAMkADYxYmM5N2Y2LTE4M2YtNGY4ZS1iM2FmLWVlNWZlMDQ5MTFkMAAuAAAAAACzaN3LCRO2Q4cNCZX-qTKIAQCBXkEtoOPEQYFOaud26n_uAAAAAH74AAA=\",\"timestamp\":\"2025-10-04 13:15:20\"} {\"level\":\"info\",\"message\":\"DbAuthorise_Reject :  | Resolved moveValid \"Processed\" -\u003E AAMkADYxYmM5N2Y2LTE4M2YtNGY4ZS1iM2FmLWVlNWZlMDQ5MTFkMAAuAAAAAACzaN3LCRO2Q4cNCZX-qTKIAQCBXkEtoOPEQYFOaud26n_uAAAAAH74AAA=\",\"timestamp\":\"2025-10-04 13:15:20\"} {\"level\":\"info\",\"message\":\"DbAuthorise_Reject : Now checking for messgaes\",\"timestamp\":\"2025-10-04 13:15:20\"} {\"level\":\"info\",\"message\":\"DbAuthorise_Reject :  | iterate() -\u003E start\",\"timestamp\":\"2025-10-04 13:15:20\"} {\"level\":\"info\",\"message\":\"DbAuthorise_Reject :  | iterate() -\u003E done\",\"timestamp\":\"2025-10-04 13:15:20\"} {\"level\":\"audit\",\"message\":\"Completed iteration \",\"timestamp\":\"2025-10-04 13:15:20\"} {\"level\":\"info\",\"message\":\"DbAuthorise_Reject :  | flush tail batch -\u003E empty\",\"timestamp\":\"2025-10-04 13:15:25\"} {\"level\":\"info\",\"message\":\"DbAuthorise_Reject :  | End getMailMessages (released in-flight)\",\"timestamp\":\"2025-10-04 13:15:25\"} {\"level\":\"info\",\"message\":\"Completed processing mails\",\"timestamp\":\"2025-10-04 13:15:25\"} {\"level\":\"info\",\"message\":\"DbAuthorise_Reject : FINISHED run\",\"timestamp\":\"2025-10-04 13:15:25\"} {\"level\":\"info\",\"message\":\"DbAuthorise_Reject finished \",\"timestamp\":\"2025-10-04 13:15:25\"} {\"level\":\"info\",\"message\":\"Processing DbAuthorise_Query run 3471\",\"timestamp\":\"2025-10-04 13:15:25\"} {\"level\":\"info\",\"message\":\"DbAuthorise_Query : Calling Graph Processor for reading Emails\",\"timestamp\":\"2025-10-04 13:15:25\"} {\"level\":\"info\",\"message\":\"Token received\",\"timestamp\":\"2025-10-04 13:15:25\"} {\"level\":\"info\",\"message\":\"DbAuthorise_Query : Refresh Token Recieved\",\"timestamp\":\"2025-10-04 13:15:25\"} {\"level\":\"info\",\"message\":\"DbAuthorise_Query :  | Start getMailMessages; cycle=5651867\",\"timestamp\":\"2025-10-04 13:15:25\"} {\"level\":\"audit\",\"message\":\"Folder found Processed\",\"timestamp\":\"2025-10-04 13:15:25\"} {\"level\":\"info\",\"message\":\"DbAuthorise_Query :  | Folder found \"Processed\" -\u003E AAMkAGRjYzk0YzFjLTBjM2ItNDM5Ny1hNDY5LWJlMDQ4ZmZhNWY2MAAuAAAAAABCtAKHt9yHRZwlqYkO_t7WAQAgd6wvIgYISLf6F1XKRNOvAAAAAIzfAAA=\",\"timestamp\":\"2025-10-04 13:15:25\"} {\"level\":\"info\",\"message\":\"DbAuthorise_Query :  | Resolved moveInvalid \"Proces\nAsyaari Muhammad - asyaari.muhammad@oneadvanced.com commented:  Hi Mohsin, response from customer when asked to check networks etc : Paul Atkinson @ Kannegiesser has checked this, many times over the past several months and there isn’t any major ongoing issue. I know also, that on any network issues can intermittently occur. However, any code that runs across a network, should be resilient enough to cope with this and not just hang.   It was thought that this might be the issue months ago and therefore some type of time out should be added to the code at relevant points so that if it does “get stuck” the connection is dropped and the programme returns to its cycle, hopefully processing the mailbox on the next pass.   I thought that was what the development team had been working on for the last couple of months?   So why are you/they asking Kannegiesser and Datel to check something that has already been checked again, which if it is, as it appears to be, the problem, rather than them fixing the code?   Over the past couple of months you’ve sent various “fixes” that were supposed to handle these problems, none of which have. If the development team have just decided now on the problem, what had they done in these  “fixes”.   We need some action on this issue as soon as possible by OneAdvanced as it looks like we are just going round in circles.   Regards,\nAsyaari Muhammad - asyaari.muhammad@oneadvanced.com commented:  Hi Mohsin Customer has tried the latest file, looks like it has crashed. Below is snip of log when it stopped cycling the mailboxes. {\"level\":\"info\",\"message\":\"Processing DbAuthorise_Query run 2200\",\"timestamp\":\"2025-10-10 13:26:08\"} {\"level\":\"info\",\"message\":\"DbAuthorise_Query : Calling Graph Processor for reading Emails\",\"timestamp\":\"2025-10-10 13:26:08\"} {\"level\":\"info\",\"message\":\"Token received\",\"timestamp\":\"2025-10-10 13:26:09\"} {\"level\":\"info\",\"message\":\"DbAuthorise_Query : Refresh Token Recieved\",\"timestamp\":\"2025-10-10 13:26:09\"} {\"level\":\"info\",\"message\":\"DbAuthorise_Query :  | Start getMailMessages; cycle=5648062\",\"timestamp\":\"2025-10-10 13:26:09\"} {\"level\":\"audit\",\"message\":\"Folder found Processed\",\"timestamp\":\"2025-10-10 13:26:09\"} {\"level\":\"info\",\"message\":\"DbAuthorise_Query :  | Folder found \"Processed\" -\u003E AAMkAGRjYzk0YzFjLTBjM2ItNDM5Ny1hNDY5LWJlMDQ4ZmZhNWY2MAAuAAAAAABCtAKHt9yHRZwlqYkO_t7WAQAgd6wvIgYISLf6F1XKRNOvAAAAAIzfAAA=\",\"timestamp\":\"2025-10-10 13:26:09\"} {\"level\":\"info\",\"message\":\"DbAuthorise_Query :  | Resolved moveInvalid \"Processed\" -\u003E AAMkAGRjYzk0YzFjLTBjM2ItNDM5Ny1hNDY5LWJlMDQ4ZmZhNWY2MAAuAAAAAABCtAKHt9yHRZwlqYkO_t7WAQAgd6wvIgYISLf6F1XKRNOvAAAAAIzfAAA=\",\"timestamp\":\"2025-10-10 13:26:09\"} {\"level\":\"audit\",\"message\":\"Completed iteration \",\"timestamp\":\"2025-10-10 13:25:58\"} {\"level\":\"audit\",\"message\":\"Folder found Processed\",\"timestamp\":\"2025-10-10 13:26:03\"} {\"level\":\"audit\",\"message\":\"Folder found Processed\",\"timestamp\":\"2025-10-10 13:26:03\"} {\"level\":\"audit\",\"message\":\"Completed iteration \",\"timestamp\":\"2025-10-10 13:26:03\"} {\"level\":\"audit\",\"message\":\"Folder found Processed\",\"timestamp\":\"2025-10-10 13:26:09\"}\nSuccessful attachment sync from ServiceNow\nSuccessful attachment sync from ServiceNow\nAsyaari Muhammad - asyaari.muhammad@oneadvanced.com commented:  Hi Mohsin, latest errors attached from testing\nAsyaari Muhammad - asyaari.muhammad@oneadvanced.com commented:  Hi Moshin, latest update from customer - has some details I updated the graph client to the latest version as supplied yesterday after the previous version failed after 5212 loops. However this version  managed just 295 loops and then has just hung. The system log reports: {\"level\":\"info\",\"message\":\"DbAuthorise_Query :  | Post-cycle heartbeat (before release)\",\"timestamp\":\"2025-10-27 17:02:36\"} {\"level\":\"info\",\"message\":\"DbAuthorise_Query :  | End getMailMessages (released in-flight)\",\"timestamp\":\"2025-10-27 17:02:36\"} {\"level\":\"info\",\"message\":\"Completed processing mails\",\"timestamp\":\"2025-10-27 17:02:36\"} {\"level\":\"info\",\"message\":\"DbAuthorise_Query :  | Post-cycle tick (event-loop hand-off)\",\"timestamp\":\"2025-10-27 17:02:36\"} {\"level\":\"info\",\"message\":\"DbAuthorise_Query : FINISHED run\",\"timestamp\":\"2025-10-27 17:02:36\"} {\"level\":\"info\",\"message\":\"DbAuthorise_Query finished \",\"timestamp\":\"2025-10-27 17:02:36\"} {\"level\":\"info\",\"message\":\"mailbox cycle complete - checking should cycle again\",\"timestamp\":\"2025-10-27 17:02:36\"} {\"level\":\"info\",\"message\":\"about to run mail box processing for the 295 time\",\"timestamp\":\"2025-10-27 17:02:36\"} And nothing after that see below..... There does appear to be an indefinite wait, possibly infinite! There are no error messages associated with this. The entire mailbox cycle has stopped. It's not even disgracefully tried to continue. Killing the node.exe now doesn't even return it to the command prompt. I've had to hit Cntrl C about half a dozen times before the command prompt returns. The system log shows an updated modification date, but no extra details have been added. Invoking .\\node.exe .\\src\\app.js isn't now restarting the service in debug mode! Although node.exe does appear in process details. There is a document in the \"inbox\" for accept. It arrived @ 21:13 last night. I've given it 5 minutes grace just to see if anything in the background was still running and needed time to die and it has now restarted. Audit and system logs for the 28th Oct have now been created.\nAsyaari Muhammad - asyaari.muhammad@oneadvanced.com commented:  Hi Moshin, looks likes hitting Enter with the latest version when it hangs now works. See below: It appeared to have hung after the next loop  at 876. However when I pressed return at the command line I got: {\"level\":\"error\",\"message\":\"DbAuthorise_Query :  | CRITICAL: getMailMessages function timed out after 10 minutes on cycle 5644099\",\"timestamp\":\"2025-10-30 11:00:25\"} {\"level\":\"info\",\"message\":\"DbAuthorise_Query :  | TIMEOUT_UNLOCK: Released in-flight flag due to function timeout\",\"timestamp\":\"2025-10-30 11:00:25\"} {\"level\":\"info\",\"message\":\"Processing DbAuthorise_Accept run 876\",\"timestamp\":\"2025-10-30 11:00:25\"} {\"level\":\"info\",\"message\":\"DbAuthorise_Accept : Calling Graph Processor for reading Emails\",\"timestamp\":\"2025-10-30 11:00:25\"} {\"level\":\"error\",\"message\":\"DbAuthorise_Query :  | CRITICAL: getMailMessages function timed out after 10 minutes on cycle 5644099\",\"timestamp\":\"2025-10-30 11:00:25\"} {\"level\":\"info\",\"message\":\"DbAuthorise_Query :  | TIMEOUT_UNLOCK: Released in-flight flag due to function timeout\",\"timestamp\":\"2025-10-30 11:00:25\"} {\"level\":\"error\",\"message\":\"DbAuthorise_Query :  | CRITICAL: getMailMessages function timed out after 10 minutes on cycle 5644099\",\"timestamp\":\"2025-10-30 11:00:25\"} {\"level\":\"info\",\"message\":\"DbAuthorise_Query :  | TIMEOUT_UNLOCK: Released in-flight flag due to function timeout\",\"timestamp\":\"2025-10-30 11:00:25\"} {\"level\":\"error\",\"message\":\"DbAuthorise_Query :  | CRITICAL: getMailMessages function timed out after 10 minutes on cycle 5644099\",\"timestamp\":\"2025-10-30 11:00:25\"} {\"level\":\"info\",\"message\":\"DbAuthorise_Query :  | TIMEOUT_UNLOCK: Released in-flight flag due to function timeout\",\"timestamp\":\"2025-10-30 11:00:25\"} {\"level\":\"error\",\"message\":\"DbAuthorise_Query :  | CRITICAL: getMailMessages function timed out after 10 minutes on cycle 5644099\",\"timestamp\":\"2025-10-30 11:00:25\"} {\"level\":\"info\",\"message\":\"DbAuthorise_Query :  | TIMEOUT_UNLOCK: Released in-flight flag due to function timeout\",\"timestamp\":\"2025-10-30 11:00:25\"} {\"level\":\"error\",\"message\":\"DbAuthorise_Query :  | CRITICAL: getMailMessages function timed out after 10 minutes on cycle 5644099\",\"timestamp\":\"2025-10-30 11:00:25\"} {\"level\":\"info\",\"message\":\"DbAuthorise_Query :  | TIMEOUT_UNLOCK: Released in-flight flag due to function timeout\",\"timestamp\":\"2025-10-30 11:00:25\"} {\"level\":\"error\",\"message\":\"DbAuthorise_Query :  | CRITICAL: getMailMessages function timed out after 10 minutes on cycle 5644099\",\"timestamp\":\"2025-10-30 11:00:25\"} {\"level\":\"info\",\"message\":\"DbAuthorise_Query :  | TIMEOUT_UNLOCK: Released in-flight flag due to function timeout\",\"timestamp\":\"2025-10-30 11:00:25\"} {\"level\":\"error\",\"message\":\"DbAuthorise_Query :  | CRITICAL: getMailMessages function timed out after 10 minutes on cycle 5644099\",\"timestamp\":\"2025-10-30 11:00:25\"} {\"level\":\"info\",\"message\":\"DbAuthorise_Query :  | TIMEOUT_UNLOCK: Released in-flight flag due to function timeout\",\"timestamp\":\"2025-10-30 11:00:25\"} {\"level\":\"error\",\"message\":\"DbAuthorise_Query :  | CRITICAL: getMailMessages function timed out after 10 minutes on cycle 5644099\",\"timestamp\":\"2025-10-30 11:00:25\"} {\"level\":\"info\",\"message\":\"DbAuthorise_Query :  | TIMEOUT_UNLOCK: Released in-flight flag due to function timeout\",\"timestamp\":\"2025-10-30 11:00:25\"} {\"level\":\"error\",\"message\":\"DbAuthorise_Query :  | CRITICAL: getMailMessages function timed out after 10 minutes on cycle 5644099\",\"timestamp\":\"2025-10-30 11:00:25\"} {\"level\":\"info\",\"message\":\"DbAuthorise_Query :  | TIMEOUT_UNLOCK: Released in-flight flag due to function timeout\",\"timestamp\":\"2025-10-30 11:00:25\"} {\"level\":\"error\",\"message\":\"DbAuthorise_Query :  | CRITICAL: getMailMessages function timed out after 10 minutes on cycle 5644099\",\"timestamp\":\"2025-10-30 11:00:25\"} {\"level\":\"info\",\"message\":\"DbAuthorise_Query :  | TIMEOUT\nAsyaari Muhammad - asyaari.muhammad@oneadvanced.com commented:  Hi @Mohsin looks like we are getting a timeout error for the getmailfucntion after 10mins, see latest screenshots.\nSuccessful attachment sync from ServiceNow"
+    },
+    {
+      "key": "VDM-1831",
+      "summary": "Samrtmail secret keys have expired",
+      "status": "Resolved",
+      "description": {
+        "type": "doc",
+        "version": 1,
+        "content": [
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Smartmail cannot connect to Outlook mailboxes due to secret keys expiring. This is related to AAD.json file in V1home\\Smartmail\\Settings."
+              }
+            ]
+          }
+        ]
+      },
+      "comments": "Got confirmation from Asyaari, the new key is working as expected. Hence closing the Jira.\nCC: \nAsyaari Muhammad - asyaari.muhammad@oneadvanced.com commented:  resolved as below, state has not changed"
+    },
+    {
+      "key": "VDM-1829",
+      "summary": "DBbacs sort code update",
+      "status": "Done",
+      "description": "",
+      "comments": ""
+    },
+    {
+      "key": "VDM-1828",
+      "summary": "Smartmail - throwing error while extracting mails - Update build",
+      "status": "Done",
+      "description": {
+        "type": "doc",
+        "version": 1,
+        "content": [
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "info: Start mail processing initialised"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "warn: "
+              },
+              {
+                "type": "text",
+                "text": "dev.v1invoices@arbuthnot.co.uk",
+                "marks": [
+                  {
+                    "type": "link",
+                    "attrs": {
+                      "href": "mailto:dev.v1invoices@arbuthnot.co.uk"
+                    }
+                  }
+                ]
+              },
+              {
+                "type": "text",
+                "text": " is disabled"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "warn: "
+              },
+              {
+                "type": "text",
+                "text": "dev.v1query@arbuthnot.co.uk",
+                "marks": [
+                  {
+                    "type": "link",
+                    "attrs": {
+                      "href": "mailto:dev.v1query@arbuthnot.co.uk"
+                    }
+                  }
+                ]
+              },
+              {
+                "type": "text",
+                "text": " is disabled"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "warn: "
+              },
+              {
+                "type": "text",
+                "text": "dev.v1reject@arbuthnot.co.uk",
+                "marks": [
+                  {
+                    "type": "link",
+                    "attrs": {
+                      "href": "mailto:dev.v1reject@arbuthnot.co.uk"
+                    }
+                  }
+                ]
+              },
+              {
+                "type": "text",
+                "text": " is disabled"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "warn: "
+              },
+              {
+                "type": "text",
+                "text": "dev.v1accept@arbuthnot.co.uk",
+                "marks": [
+                  {
+                    "type": "link",
+                    "attrs": {
+                      "href": "mailto:dev.v1accept@arbuthnot.co.uk"
+                    }
+                  }
+                ]
+              },
+              {
+                "type": "text",
+                "text": " is disabled"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "info: Processing dev_V1invoices run 0"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "info: dev_V1invoices : Calling Graph Processor for reading Emails"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "(node:3512) Warning: Setting the NODE_TLS_REJECT_UNAUTHORIZED environment variable to '0' makes TLS connections and HTTPS equests insecure by disabling certificate verification."
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "    at getAllowUnauthorized (node:internal/options:44:13)"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "    at Object.connect (node:_tls_wrap:1748:29)"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "    at Agent.createConnection (node:https:173:22)"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "    at Agent.createSocket (node:_http_agent:324:26)"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "    at Agent.addRequest (node:_http_agent:276:10)"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "    at new ClientRequest (node:_http_client:347:16)"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "    at Object.request (node:https:381:10)"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "    at Request.start (E:\\V1\\SmartMail\\node_modules\\request\\request.js:751:32)"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "    at Request.write (E:\\V1\\SmartMail\\node_modules\\request\\request.js:1491:10)"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "    at end (E:\\V1\\SmartMail\\node_modules\\request\\request.js:549:18)"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "    at Immediate.\u003Canonymous\u003E (E:\\V1\\SmartMail\\node_modules\\request\\request.js:578:7)"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "    at process.processImmediate (node:internal/timers:485:21)"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "info: Token received"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "info: Refresh Token Received"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "ReferenceError: checkAndFetchMailFolder is not defined"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "    at _callee2$ ("
+              },
+              {
+                "type": "text",
+                "text": "file:///E:/V1/SmartMail/src/modules/core/graphClient.js:80:11)",
+                "marks": [
+                  {
+                    "type": "link",
+                    "attrs": {
+                      "href": "file:///E:/V1/SmartMail/src/modules/core/graphClient.js:80:11)"
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "    at s ("
+              },
+              {
+                "type": "text",
+                "text": "file:///E:/V1/SmartMail/src/modules/core/graphClient.js:14:1678)",
+                "marks": [
+                  {
+                    "type": "link",
+                    "attrs": {
+                      "href": "file:///E:/V1/SmartMail/src/modules/core/graphClient.js:14:1678)"
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "    at Generator.\u003Canonymous\u003E ("
+              },
+              {
+                "type": "text",
+                "text": "file:///E:/V1/SmartMail/src/modules/core/graphClient.js:14:1379)",
+                "marks": [
+                  {
+                    "type": "link",
+                    "attrs": {
+                      "href": "file:///E:/V1/SmartMail/src/modules/core/graphClient.js:14:1379)"
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "    at Generator.next ("
+              },
+              {
+                "type": "text",
+                "text": "file:///E:/V1/SmartMail/src/modules/core/graphClient.js:14:2199)",
+                "marks": [
+                  {
+                    "type": "link",
+                    "attrs": {
+                      "href": "file:///E:/V1/SmartMail/src/modules/core/graphClient.js:14:2199)"
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "    at asyncGeneratorStep ("
+              },
+              {
+                "type": "text",
+                "text": "file:///E:/V1/SmartMail/src/modules/core/graphClient.js:15:70)",
+                "marks": [
+                  {
+                    "type": "link",
+                    "attrs": {
+                      "href": "file:///E:/V1/SmartMail/src/modules/core/graphClient.js:15:70)"
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "    at _next ("
+              },
+              {
+                "type": "text",
+                "text": "file:///E:/V1/SmartMail/src/modules/core/graphClient.js:16:163)",
+                "marks": [
+                  {
+                    "type": "link",
+                    "attrs": {
+                      "href": "file:///E:/V1/SmartMail/src/modules/core/graphClient.js:16:163)"
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "    at "
+              },
+              {
+                "type": "text",
+                "text": "file:///E:/V1/SmartMail/src/modules/core/graphClient.js:16:299",
+                "marks": [
+                  {
+                    "type": "link",
+                    "attrs": {
+                      "href": "file:///E:/V1/SmartMail/src/modules/core/graphClient.js:16:299"
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "    at new Promise (\u003Canonymous\u003E)"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "    at Object.\u003Canonymous\u003E ("
+              },
+              {
+                "type": "text",
+                "text": "file:///E:/V1/SmartMail/src/modules/core/graphClient.js:16:90)",
+                "marks": [
+                  {
+                    "type": "link",
+                    "attrs": {
+                      "href": "file:///E:/V1/SmartMail/src/modules/core/graphClient.js:16:90)"
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "    at Object.getMailMessages ("
+              },
+              {
+                "type": "text",
+                "text": "file:///E:/V1/SmartMail/src/modules/core/graphClient.js:182:17)",
+                "marks": [
+                  {
+                    "type": "link",
+                    "attrs": {
+                      "href": "file:///E:/V1/SmartMail/src/modules/core/graphClient.js:182:17)"
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "    at _callee3$ ("
+              },
+              {
+                "type": "text",
+                "text": "file:///E:/V1/SmartMail/src/modules/core/msGraphProcessor.js:180:24)",
+                "marks": [
+                  {
+                    "type": "link",
+                    "attrs": {
+                      "href": "file:///E:/V1/SmartMail/src/modules/core/msGraphProcessor.js:180:24)"
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "    at s ("
+              },
+              {
+                "type": "text",
+                "text": "file:///E:/V1/SmartMail/src/modules/core/msGraphProcessor.js:13:1678)",
+                "marks": [
+                  {
+                    "type": "link",
+                    "attrs": {
+                      "href": "file:///E:/V1/SmartMail/src/modules/core/msGraphProcessor.js:13:1678)"
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "    at Generator.\u003Canonymous\u003E ("
+              },
+              {
+                "type": "text",
+                "text": "file:///E:/V1/SmartMail/src/modules/core/msGraphProcessor.js:13:1379)",
+                "marks": [
+                  {
+                    "type": "link",
+                    "attrs": {
+                      "href": "file:///E:/V1/SmartMail/src/modules/core/msGraphProcessor.js:13:1379)"
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "    at Generator.next ("
+              },
+              {
+                "type": "text",
+                "text": "file:///E:/V1/SmartMail/src/modules/core/msGraphProcessor.js:13:2199)",
+                "marks": [
+                  {
+                    "type": "link",
+                    "attrs": {
+                      "href": "file:///E:/V1/SmartMail/src/modules/core/msGraphProcessor.js:13:2199)"
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "    at asyncGeneratorStep ("
+              },
+              {
+                "type": "text",
+                "text": "file:///E:/V1/SmartMail/src/modules/core/msGraphProcessor.js:14:70)",
+                "marks": [
+                  {
+                    "type": "link",
+                    "attrs": {
+                      "href": "file:///E:/V1/SmartMail/src/modules/core/msGraphProcessor.js:14:70)"
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "    at _next ("
+              },
+              {
+                "type": "text",
+                "text": "file:///E:/V1/SmartMail/src/modules/core/msGraphProcessor.js:15:163)",
+                "marks": [
+                  {
+                    "type": "link",
+                    "attrs": {
+                      "href": "file:///E:/V1/SmartMail/src/modules/core/msGraphProcessor.js:15:163)"
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "info: Completed processing mails"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "info: dev_V1invoices : FINISHED run"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "info: dev_V1invoices finished"
+              }
+            ]
+          }
+        ]
+      },
+      "comments": "  Can you please update the comment on the work done on this card. If not required can we close/reject this card.\nCC;- \n \nThis issue was reported by Steve; I have provided a quick fix for this, but the fixed needs to be updated in the build. This has been pushed back by vulnerability issues and need to be picked up.\nCC:   "
+    },
+    {
+      "key": "VDM-1827",
+      "summary": "NIS - Update NIS build to include sqljdbc_auth.dll",
+      "status": "Done",
+      "description": "",
+      "comments": "  Can you please update the comment on the work done on this card. If not required can we close/reject this card.\nCC;- \n \nThe issue was reported by Steve; the file is mixing in the NIS build; thus, it needs to be updated in the build. This has been pushed back by vulnerability issues and need to be picked up. There are many securities vulnerabilities fixes we are working on thus it will be best to pick this up and provided security fixes and this before final NIS build.\nCC:   \nAs discussed, this fix will be included in build along with vulnerability."
+    },
+    {
+      "key": "VDM-1826",
+      "summary": "Vulnerability report findings I",
+      "status": "Done",
+      "description": {
+        "type": "doc",
+        "version": 1,
+        "content": [
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "inlineCard",
+                "attrs": {
+                  "url": "https://advancedcsg.atlassian.net/browse/VDM-1822"
+                }
+              },
+              {
+                "type": "text",
+                "text": " "
+              },
+              {
+                "type": "hardBreak"
+              },
+              {
+                "type": "hardBreak"
+              },
+              {
+                "type": "text",
+                "text": "Rico has a Vulnerability report that highlight risk on the V1 installation. We need guidance on how to patch these vulnerabilities."
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Issue\tSeverity\tRecommended Action:"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Out-of-date Version (AngularJS)\t"
+              },
+              {
+                "type": "hardBreak"
+              },
+              {
+                "type": "text",
+                "text": "High\t"
+              },
+              {
+                "type": "hardBreak"
+              },
+              {
+                "type": "text",
+                "text": "Review usage, upgrade AngularJS if possible"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Out-of-date Version (jQuery Validation)\t"
+              },
+              {
+                "type": "hardBreak"
+              },
+              {
+                "type": "text",
+                "text": "High\t"
+              },
+              {
+                "type": "hardBreak"
+              },
+              {
+                "type": "text",
+                "text": "Update jQuery Validation to latest version"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Out-of-date Version (Underscore.js)\t"
+              },
+              {
+                "type": "hardBreak"
+              },
+              {
+                "type": "text",
+                "text": "High\t"
+              },
+              {
+                "type": "hardBreak"
+              },
+              {
+                "type": "text",
+                "text": "Upgrade or replace Underscore.js"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "[Possible] Cross-site Scripting\t"
+              },
+              {
+                "type": "hardBreak"
+              },
+              {
+                "type": "text",
+                "text": "Medium\t"
+              },
+              {
+                "type": "hardBreak"
+              },
+              {
+                "type": "text",
+                "text": "Review endpoint, sanitize input/output"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "[Possible] Sensitive Data Exposure - JDBC Connection String\t"
+              },
+              {
+                "type": "hardBreak"
+              },
+              {
+                "type": "text",
+                "text": "Medium\t"
+              },
+              {
+                "type": "hardBreak"
+              },
+              {
+                "type": "text",
+                "text": "Confirm no sensitive data exposed"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "HTTP Strict Transport Security (HSTS) Policy Not Enabled\t"
+              },
+              {
+                "type": "hardBreak"
+              },
+              {
+                "type": "text",
+                "text": "Medium\t"
+              },
+              {
+                "type": "hardBreak"
+              },
+              {
+                "type": "text",
+                "text": "Enable HSTS in web server configuration"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Out-of-date Version (Bootstrap)\t"
+              },
+              {
+                "type": "hardBreak"
+              },
+              {
+                "type": "text",
+                "text": "Medium\t"
+              },
+              {
+                "type": "hardBreak"
+              },
+              {
+                "type": "text",
+                "text": "Upgrade Bootstrap to secure version"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Out-of-date Version (jQuery UI Autocomplete)\t"
+              },
+              {
+                "type": "hardBreak"
+              },
+              {
+                "type": "text",
+                "text": "Medium\t"
+              },
+              {
+                "type": "hardBreak"
+              },
+              {
+                "type": "text",
+                "text": "Upgrade jQuery UI"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Out-of-date Version (jQuery UI Dialog)\t"
+              },
+              {
+                "type": "hardBreak"
+              },
+              {
+                "type": "text",
+                "text": "Medium\t"
+              },
+              {
+                "type": "hardBreak"
+              },
+              {
+                "type": "text",
+                "text": "Upgrade jQuery UI"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Out-of-date Version (jQuery UI Tooltip)\t"
+              },
+              {
+                "type": "hardBreak"
+              },
+              {
+                "type": "text",
+                "text": "Medium\t"
+              },
+              {
+                "type": "hardBreak"
+              },
+              {
+                "type": "text",
+                "text": "Upgrade jQuery UI"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Out-of-date Version (jQuery)\t"
+              },
+              {
+                "type": "hardBreak"
+              },
+              {
+                "type": "text",
+                "text": "Medium\t"
+              },
+              {
+                "type": "hardBreak"
+              },
+              {
+                "type": "text",
+                "text": "Upgrade jQuery"
+              }
+            ]
+          }
+        ]
+      },
+      "comments": "Hi  Can you please confirm TCP/HTTP version? Thanks.\nHi  ,\nFor v1 applications?\nYes  , V1 has 2 main release versions TCP and HTTP. We are providing release mostly on http but TCP version is also there.\nHi  , still waiting for the customer to get back to me.\nAlmost developemnt has been completed. This card has been cloned to   as it taking more than 8 SP.\nIt has been cloned to https://advancedcsg.atlassian.net/browse/VDM-1843\nIt has been cloned to https://advancedcsg.atlassian.net/browse/VDM-1843\n"
+    },
+    {
+      "key": "VDM-1824",
+      "summary": "High - Unauthenticated API Endpoint Enumeration",
+      "status": "Done",
+      "description": {
+        "type": "doc",
+        "version": 1,
+        "content": [
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Observed that web portal exposes an unauthenticated, auto-generated API endpoint listing at "
+              },
+              {
+                "type": "text",
+                "text": "https://10.50.42.38:5002/apiProxy/v1/",
+                "marks": [
+                  {
+                    "type": "link",
+                    "attrs": {
+                      "href": "https://10.50.42.38:5002/apiProxy/v1/"
+                    }
+                  }
+                ]
+              },
+              {
+                "type": "text",
+                "text": ". This page discloses the full structure and documentation of the Node Integration Server (NIS) API, including endpoints related to authentication, configuration, file handling, and database connectivity, etc. All of these endpoints (e.g., /config/testJDBC, /upload/sendFile, /login/killSID) are accessible without valid session tokens or authentication headers. This behavior indicates a lack of proper access control enforcement at the API layer. This behavior reflects a broader issue of insecure API design, where endpoint structure is made visible to unauthenticated users, potentially violating the principle of least privilege and API security best practices."
+              }
+            ]
+          }
+        ]
+      },
+      "comments": "API list has been restricted on test server and code changes will be released with new version.\nTested and closed by Security and team."
+    },
+    {
+      "key": "VDM-1823",
+      "summary": "Critical - No Account Lockout May Facilitate Brute Force Password Attack",
+      "status": "Done",
+      "description": {
+        "type": "doc",
+        "version": 1,
+        "content": [
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Observed that V1DM Smart Suite Web portal don't have account lockout feature, it may facilitate brute force password attack."
+              }
+            ]
+          },
+          {
+            "type": "paragraph"
+          },
+          {
+            "type": "orderedList",
+            "attrs": {
+              "order": 1
+            },
+            "content": [
+              {
+                "type": "listItem",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "Navigate to the V1DM web portal, capture the login traffic in burpsuite and send it to intruder "
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "listItem",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": " Go to Intruder ---\u003E select Attack Type---\u003E Sniper ---\u003E Highlight the password and click Add § to mark it as a payload position"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "listItem",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "Go to the Payloads tab in Intruder ---\u003E Set Payload Type ---\u003E Simple List ---\u003E Select a password file. E.g: Rockyou.txt  ---\u003E Attack"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "listItem",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "Upon burteforce attack completion enter valid Username and Enter valid Password."
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "listItem",
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "Observe that user is still getting logged, therefore no-account lockout policy is implemented."
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "comments": "Fixed user lock and unlocked on failed login attempts"
+    },
+    {
+      "key": "VDM-1822",
+      "summary": "Vulnerability report findings",
+      "status": "Development Required",
+      "description": {
+        "type": "doc",
+        "version": 1,
+        "content": [
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Rico has a Vulnerability report that highlight risk on the V1 installation. We need guidance on how to patch these vulnerabilities."
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Issue\tSeverity\tRecommended Action:"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Out-of-date Version (AngularJS)\t"
+              },
+              {
+                "type": "hardBreak"
+              },
+              {
+                "type": "text",
+                "text": "High\t"
+              },
+              {
+                "type": "hardBreak"
+              },
+              {
+                "type": "text",
+                "text": "Review usage, upgrade AngularJS if possible"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Out-of-date Version (jQuery Validation)\t"
+              },
+              {
+                "type": "hardBreak"
+              },
+              {
+                "type": "text",
+                "text": "High\t"
+              },
+              {
+                "type": "hardBreak"
+              },
+              {
+                "type": "text",
+                "text": "Update jQuery Validation to latest version"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Out-of-date Version (Underscore.js)\t"
+              },
+              {
+                "type": "hardBreak"
+              },
+              {
+                "type": "text",
+                "text": "High\t"
+              },
+              {
+                "type": "hardBreak"
+              },
+              {
+                "type": "text",
+                "text": "Upgrade or replace Underscore.js"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "[Possible] Cross-site Scripting\t"
+              },
+              {
+                "type": "hardBreak"
+              },
+              {
+                "type": "text",
+                "text": "Medium\t"
+              },
+              {
+                "type": "hardBreak"
+              },
+              {
+                "type": "text",
+                "text": "Review endpoint, sanitize input/output"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "[Possible] Sensitive Data Exposure - JDBC Connection String\t"
+              },
+              {
+                "type": "hardBreak"
+              },
+              {
+                "type": "text",
+                "text": "Medium\t"
+              },
+              {
+                "type": "hardBreak"
+              },
+              {
+                "type": "text",
+                "text": "Confirm no sensitive data exposed"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "HTTP Strict Transport Security (HSTS) Policy Not Enabled\t"
+              },
+              {
+                "type": "hardBreak"
+              },
+              {
+                "type": "text",
+                "text": "Medium\t"
+              },
+              {
+                "type": "hardBreak"
+              },
+              {
+                "type": "text",
+                "text": "Enable HSTS in web server configuration"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Out-of-date Version (Bootstrap)\t"
+              },
+              {
+                "type": "hardBreak"
+              },
+              {
+                "type": "text",
+                "text": "Medium\t"
+              },
+              {
+                "type": "hardBreak"
+              },
+              {
+                "type": "text",
+                "text": "Upgrade Bootstrap to secure version"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Out-of-date Version (jQuery UI Autocomplete)\t"
+              },
+              {
+                "type": "hardBreak"
+              },
+              {
+                "type": "text",
+                "text": "Medium\t"
+              },
+              {
+                "type": "hardBreak"
+              },
+              {
+                "type": "text",
+                "text": "Upgrade jQuery UI"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Out-of-date Version (jQuery UI Dialog)\t"
+              },
+              {
+                "type": "hardBreak"
+              },
+              {
+                "type": "text",
+                "text": "Medium\t"
+              },
+              {
+                "type": "hardBreak"
+              },
+              {
+                "type": "text",
+                "text": "Upgrade jQuery UI"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Out-of-date Version (jQuery UI Tooltip)\t"
+              },
+              {
+                "type": "hardBreak"
+              },
+              {
+                "type": "text",
+                "text": "Medium\t"
+              },
+              {
+                "type": "hardBreak"
+              },
+              {
+                "type": "text",
+                "text": "Upgrade jQuery UI"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Out-of-date Version (jQuery)\t"
+              },
+              {
+                "type": "hardBreak"
+              },
+              {
+                "type": "text",
+                "text": "Medium\t"
+              },
+              {
+                "type": "hardBreak"
+              },
+              {
+                "type": "text",
+                "text": "Upgrade jQuery"
+              }
+            ]
+          }
+        ]
+      },
+      "comments": " Please provide the version of v1 installation and Vulnerability report.  \nHi Mohsin,R13 patch 3”Rico has a Vulnerability report that highlight risk on the V1 installation. We need guidance on how to patch these vulnerabilities.\nIssue\tSeverity\tRecommended Action:\nOut-of-date Version (AngularJS)\tHigh\tReview usage, upgrade AngularJS if possible\nOut-of-date Version (jQuery Validation)\tHigh\tUpdate jQuery Validation to latest version\nOut-of-date Version (Underscore.js)\tHigh\tUpgrade or replace Underscore.js\n[Possible] Cross-site Scripting\tMedium\tReview endpoint, sanitize input/output\n[Possible] Sensitive Data Exposure - JDBC Connection String\tMedium\tConfirm no sensitive data exposed\nHTTP Strict Transport Security (HSTS) Policy Not Enabled\tMedium\tEnable HSTS in web server configuration\nOut-of-date Version (Bootstrap)\tMedium\tUpgrade Bootstrap to secure version\nOut-of-date Version (jQuery UI Autocomplete)\tMedium\tUpgrade jQuery UI\nOut-of-date Version (jQuery UI Dialog)\tMedium\tUpgrade jQuery UI\nOut-of-date Version (jQuery UI Tooltip)\tMedium\tUpgrade jQuery UI\nOut-of-date Version (jQuery)\tMedium\tUpgrade jQuery”\nLet me know if it works or not.\n  This information is already available in the description. We were looking for the detailed report for the vulnerabilities\n We require detailed information regarding the following vulnerabilities: Cross-Site Scripting (XSS), Sensitive Data Exposure through JDBC connection strings, and the absence of an HTTP Strict Transport Security (HSTS) policy for versions 1.0/1.1/1.2. A comprehensive report will help us better understand and address the identified risks.\nSure, I’ll get the report from customer and get back to you.\n\nHi, attached the report.\n  We need to review each vulnerability and implement the necessary code changes accordingly. Could you please create a problem ticket for this and link the current incident to it?Thank you.\nHi Mohsin,\nPFA - https://advancedcsg.atlassian.net/browse/VDM-1826"
+    },
+    {
+      "key": "VDM-1820",
+      "summary": "Create Linux build for Smartmail - Nodejs Upgrade",
+      "status": "Done",
+      "description": "",
+      "comments": "  Can you please update the comment on the work done on this card. If not required can we close/reject this card.\nCC;- \n \nNo work done yet, this task is for creating Linux build after node upgrade, but it is getting pushed back due to securities issues, T3 and defects. Kindly plan this as priority task once we are through with major issues and security issues so we can provide all the fixes in one go and release the Linux build.\nCC:   "
+    },
+    {
+      "key": "VDM-1819",
+      "summary": "Create Linux build for Webportal - Nodejs Upgrade",
+      "status": "Done",
+      "description": "",
+      "comments": ""
+    },
+    {
+      "key": "VDM-1818",
+      "summary": "Create Linux build for NIS - Nodejs Upgrade",
+      "status": "Done",
+      "description": "",
+      "comments": "  Can you please update the comment on the work done on this card. If not required can we close/reject this card.\nCC;- \n \nNo work done yet, this task is for creating Linux build after node upgrade, but it is getting pushed back due to securities issues, T3 and defects. Kindly plan this as priority task once we are through with major issues and security issues so we can provide all the fixes in one go and release the Linux build.\nCC:   "
+    },
+    {
+      "key": "VDM-1817",
+      "summary": "PEN TEST Support and Postman collection for API",
+      "status": "Done",
+      "description": "",
+      "comments": ""
+    },
+    {
+      "key": "VDM-1816",
+      "summary": "V1 Licensing server SSL renewal",
+      "status": "Done",
+      "description": "",
+      "comments": "CSR is already provided to Procurement team. There is some process undergoing between Procurement team and GlobalSign. They are on it.\nSSL renewal has been completed."
+    },
+    {
+      "key": "VDM-1815",
+      "summary": "CS0843730 Cadwyn OpenAccounts V10 Upgrade reporting pack error",
+      "status": "Rejected",
+      "description": {
+        "type": "doc",
+        "version": 1,
+        "content": [
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "see description and attachments"
+              }
+            ]
+          }
+        ]
+      },
+      "comments": "Case- CS0072027   Incident-INC0024401Sub-CS0843730 Cadwyn OpenAccounts V10 Upgrade Reporting Pack errorDescription-Can you assist please. Users encounter attached error when generating Reporting Pack in EQ05. \nWarning on V10 Test upgrade**FILL-IN field1 does not fit in parent FRAME f-select. (6491)\nCan you confirm if V10 release notes EQ 560/OA-13492 will help resolve this issue please. If so, can I have it please.\nplease see attachments\n This is Open Account issue which is reported in V1DM Project. Rejecting this jira.\nNot V1 DM issue\n could you please change the project on this Jira to OpenAccounts? Thanks.\ncc  "
+    },
+    {
+      "key": "VDM-1812",
+      "summary": "Webportal latest node upgrade issue",
+      "status": "Done",
+      "description": {
+        "type": "doc",
+        "version": 1,
+        "content": [
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Change password is not working on latest webportal"
+              }
+            ]
+          }
+        ]
+      },
+      "comments": "Webportal issue has been resolved. Code changes has been done and branch has been committed.  will create a new build.\nTask closed"
+    },
+    {
+      "key": "VDM-1811",
+      "summary": "Can we add debug to the DbBacs Client application",
+      "status": "With Support",
+      "description": {
+        "type": "doc",
+        "version": 1,
+        "content": [
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Can debug be added to at the point DbBacs client compresses the file?"
+              }
+            ]
+          }
+        ]
+      },
+      "comments": " what about the parameters they are talking about conversion parameters ? \n Also have they tried running server on Linux as “./dbcsbacsserver -v3” ? The -v3 gives more log info.\nAs there is no response from customer and discussed with Mark, changing priority to 2.\nHi  they have now come back to us with the following\nHere it is : Interesting message down below “DbCS_BACS_KILL_BACS_FILE” ????????\n \nC:\\DbBacs\u003EDbCSBacsServer.exe -debug -v3 31416@any\nService name will be 'DbCSBacsServer'\nDbCSBacsServer V6.00, build 001.007\nReadLockList: 1 entries\nServer listening on INADDR_ANY.\nsetsockopt(SO_REUSEADDR) gave 0\nServer active on INADDR_ANY [0.0.0.0] port 31416.\nServer function level: 0x0201 (513)\nServing files from: C:\\DbBacs\\ (port 31416)\nVerbosity set to 3\n22/05/25 15:47:00:\nListening for bacs client requests...\n[436] Request from 10.0.0.22 [10.0.0.22] port 4294954513 at Thu May 22 15:50:14 2025\nMessageID: 1 (0x1), length 0\n        DbCS_PING: Client Key = 0000000B\n[436] Request from 10.0.0.22 [10.0.0.22] port 4294954514 at Thu May 22 15:50:14 2025\nMessageID: 1000 (0x3E8), length 11\n    DbCS_BACS_GETFILE\n        Filename: C:\\DbBacs\\dbbacs.key\n        Filesize: 1997\n[444] Request from 10.0.0.22 [10.0.0.22] port 4294954516 at Thu May 22 15:50:15 2025\nMessageID: 1021 (0x3FD), length 14\n    DbCS_BACS_GET_TIMED_FILE\n        Filename: C:\\DbBacs\\dbbsystem.dat\n        Client time-stamp: 00000000 - Thu Jan 01 00:00:00 1970\n        Server time-stamp: 681DEB66 - Fri May 09 12:47:50 2025\n        Filesize: 1024\n[436] Request from 10.0.0.22 [10.0.0.22] port 4294954518 at Thu May 22 15:50:15 2025\nMessageID: 1021 (0x3FD), length 16\n    DbCS_BACS_GET_TIMED_FILE\n        Filename: C:\\DbBacs\\dbbprofiles.dat\n        Client time-stamp: 00000000 - Thu Jan 01 00:00:00 1970\n        Server time-stamp: 681DED1B - Fri May 09 12:55:07 2025\n        Filesize: 2048\n[436] Request from 10.0.0.22 [10.0.0.22] port 4294954519 at Thu May 22 15:50:15 2025\nMessageID: 1021 (0x3FD), length 13\n    DbCS_BACS_GET_TIMED_FILE\n        Filename: C:\\DbBacs\\dbbusers.dat\n        Client time-stamp: 00000000 - Thu Jan 01 00:00:00 1970\n        Server time-stamp: 681DEC3A - Fri May 09 12:51:22 2025\n        Filesize: 1024\n[436] Request from 10.0.0.22 [10.0.0.22] port 4294954520 at Thu May 22 15:50:15 2025\nMessageID: 1021 (0x3FD), length 11\n    DbCS_BACS_GET_TIMED_FILE\n        Filename: C:\\DbBacs\\dbbacs.cmd\n        Client time-stamp: 00000000 - Thu Jan 01 00:00:00 1970\n        Server time-stamp: 00000000 - Thu Jan 01 00:00:00 1970\nTimes are the same: 00000000\n[440] Request from 10.0.0.22 [10.0.0.22] port 4294954521 at Thu May 22 15:50:15 2025\nMessageID: 1021 (0x3FD), length 14\n    DbCS_BACS_GET_TIMED_FILE\n        Filename: C:\\DbBacs\\dbbipdata.dat\n        Client time-stamp: 00000000 - Thu Jan 01 00:00:00 1970\n        Server time-stamp: 39D44D94 - Fri Sep 29 09:06:44 2000\n        Filesize: 512\n[440] Request from 10.0.0.22 [10.0.0.22] port 4294954522 at Thu May 22 15:50:15 2025\nMessageID: 1021 (0x3FD), length 15\n    DbCS_BACS_GET_TIMED_FILE\n        Filename: C:\\DbBacs\\dbbnetwork.dat\n        Client time-stamp: 00000000 - Thu Jan 01 00:00:00 1970\n        Server time-stamp: 39D44D94 - Fri Sep 29 09:06:44 2000\n        Filesize: 1024\n[444] Request from 10.0.0.22 [10.0.0.22] port 4294954523 at Thu May 22 15:50:15 2025\nMessageID: 1021 (0x3FD), length 15\n    DbCS_BACS_GET_TIMED_FILE\n        Filename: C:\\DbBacs\\dbbservice.dat\n        Client time-stamp: 00000000 - Thu Jan 01 00:00:00 1970\n        Server time-stamp: 681DEB98 - Fri May 09 12:48:40 2025\n        Filesize: 2048\n[444] Request from 10.0.0.22 [10.0.0.22] port 4294954524 at Thu May 22 15:50:15 2025\nMessageID: 1021 (0x3FD), length 15\n    DbCS_BACS_GET_TIMED_FILE\n        Filename: C:\\DbBacs\\dbbhistory.dat\n        Client time-stamp: 00000000 - Thu Jan 01 00:00:00 1970\n        Server time-stamp: 681E0BA1 - Fri May 09 15:05:21 2025\n        Filesize: 1024\n[452] Request from 10.0.0.22 [10.0.0.22] port 4294954525 at Thu May 22 15:50:15 2025\nMessageID: 1021 (0x3FD), length 15\n    DbCS_BACS_GET_TIMED_FILE\n        Filename: C:\\DbBacs\\dbbpreproc.bat\n        Client time-stamp: 00000000 - Thu Jan 01 00:00:00 1970\n        Server time-stamp: 00000000 - Thu Jan 01 00:00:00 1970\nTimes are the same: 00000000\n[456] Request from 10.0.0.22 [10.0.0.22] port 4294954526 at Thu May 22 15:50:15 2025\nMessageID: 1021 (0x3FD), length 16\n    DbCS_BACS_GET_TIMED_FILE\n        Filename: C:\\DbBacs\\dbbpostproc.bat\n        Client time-stamp: 00000000 - Thu Jan 01 00:00:00 1970\n        Server time-stamp: 00000000 - Thu Jan 01 00:00:00 1970\nTimes are the same: 00000000\n[440] Request from 10.0.0.22 [10.0.0.22] port 4294954527 at Thu May 22 15:50:15 2025\nMessageID: 1021 (0x3FD), length 22\n    DbCS_BACS_GET_TIMED_FILE\n        Filename: C:\\DbBacs\\SubmissionSummary.xsl\n        Client time-stamp: 00000000 - Thu Jan 01 00:00:00 1970\n        Server time-stamp: 3F7AF6B4 - Wed Oct 01 16:45:56 2003\n        Filesize: 8250\n[464] Request from 10.0.0.22 [10.0.0.22] port 4294954528 at Thu May 22 15:50:15 2025\nMessageID: 1021 (0x3FD), length 22\n    DbCS_BACS_GET_TIMED_FILE\n        Filename: C:\\DbBacs\\SubmissionControl.xsd\n        Client time-stamp: 00000000 - Thu Jan 01 00:00:00 1970\n        Server time-stamp: 3F7AF6B4 - Wed Oct 01 16:45:56 2003\n        Filesize: 9759\n[460] Request from 10.0.0.22 [10.0.0.22] port 4294954529 at Thu May 22 15:50:15 2025\nMessageID: 1021 (0x3FD), length 13\n    DbCS_BACS_GET_TIMED_FILE\n        Filename: C:\\DbBacs\\dbbqueue.dat\n        Client time-stamp: 00000000 - Thu Jan 01 00:00:00 1970\n        Server time-stamp: 681E0C08 - Fri May 09 15:07:04 2025\n        Filesize: 1024\n[472] Request from 10.0.0.22 [10.0.0.22] port 4294954530 at Thu May 22 15:50:16 2025\nMessageID: 1009 (0x3F1), length 16\n    DbCS_BACS_ADD_LOG_MESSAGE\n[472] Request from 10.0.0.22 [10.0.0.22] port 4294954531 at Thu May 22 15:50:17 2025\nMessageID: 1013 (0x3F5), length 15\n    DbCS_BACS_ADD_LOCK\n        Filename: C:\\DbBacs\\Locks\\dbbhistory.dat\n[376] Request from 10.0.0.22 [10.0.0.22] port 4294954532 at Thu May 22 15:50:17 2025\nMessageID: 1021 (0x3FD), length 15\n    DbCS_BACS_GET_TIMED_FILE\n        Filename: C:\\DbBacs\\dbbhistory.dat\n        Client time-stamp: 681E0BA1 - Fri May 09 15:05:21 2025\n        Server time-stamp: 681E0BA1 - Fri May 09 15:05:21 2025\nTimes are the same: 681E0BA1\n[376] Request from 10.0.0.22 [10.0.0.22] port 4294954533 at Thu May 22 15:50:17 2025\nMessageID: 1022 (0x3FE), length 15\n    DbCS_BACS_PUT_TIMED_FILE\n        Filename: C:\\DbBacs\\dbbhistory.dat\n        Filesize: 1024\n        TimeStamp: 682F39A9 - Thu May 22 15:50:17 2025\n[376] Request from 10.0.0.22 [10.0.0.22] port 4294954534 at Thu May 22 15:50:17 2025\nMessageID: 1014 (0x3F6), length 15\n    DbCS_BACS_REMOVE_LOCK\n        Filename: C:\\DbBacs\\Locks\\dbbhistory.dat\n[376] Request from 10.0.0.22 [10.0.0.22] port 4294954535 at Thu May 22 15:50:17 2025\nMessageID: 1000 (0x3E8), length 14\n    DbCS_BACS_GETFILE\n        Filename: C:\\DbBacs\\dbbchglog.dat\n        Filesize: 81\n[464] Request from 10.0.0.22 [10.0.0.22] port 4294954536 at Thu May 22 15:50:18 2025\nMessageID: 1000 (0x3E8), length 16\n    DbCS_BACS_GETFILE\n        Filename: C:\\DbBacs\\dbbeventlog.dat\n        Filesize: 3120\n[480] Request from 10.0.0.22 [10.0.0.22] port 4294954537 at Thu May 22 15:50:18 2025\nMessageID: 1001 (0x3E9), length 16\n    DbCS_BACS_PUTFILE\n        Filename: C:\\DbBacs\\dbbeventlog.dat\n        Filesize: 3120\n[376] Request from 10.0.0.22 [10.0.0.22] port 4294954597 at Thu May 22 15:50:52 2025\nMessageID: 1031 (0x407), length 13\n    DbCS_PROCESS_QUEUE_EX\n[376] Request from 10.0.0.22 [10.0.0.22] port 4294954598 at Thu May 22 15:50:52 2025\nMessageID: 1021 (0x3FD), length 13\n    DbCS_BACS_GET_TIMED_FILE\n        Filename: C:\\DbBacs\\dbbqueue.dat\n        Client time-stamp: 00000000 - Thu Jan 01 00:00:00 1970\n        Server time-stamp: 682F39CC - Thu May 22 15:50:52 2025\n        Filesize: 1536\n[480] Request from 10.0.0.22 [10.0.0.22] port 4294954599 at Thu May 22 15:50:52 2025\nMessageID: 1001 (0x3E9), length 18\n    DbCS_BACS_PUTFILE\n        Filename: C:\\DbBacs\\spool\\S-00005.DAT\n        Filesize: 18495\n[456] Request from 10.0.0.22 [10.0.0.22] port 4294954608 at Thu May 22 15:50:55 2025\nMessageID: 1009 (0x3F1), length 16\n    DbCS_BACS_ADD_LOG_MESSAGE\n[376] Request from 10.0.0.22 [10.0.0.22] port 4294954617 at Thu May 22 15:51:05 2025\nMessageID: 1021 (0x3FD), length 13\n    DbCS_BACS_GET_TIMED_FILE\n        Filename: C:\\DbBacs\\dbbqueue.dat\n        Client time-stamp: 682F39CC - Thu May 22 15:50:52 2025\n        Server time-stamp: 682F39CC - Thu May 22 15:50:52 2025\nTimes are the same: 682F39CC\n[496] Request from 10.0.0.22 [10.0.0.22] port 4294954618 at Thu May 22 15:51:05 2025\nMessageID: 1032 (0x408), length 5\n    DbCS_BACS_QUEUE_ENTRY_LOCK\n[496] Request from 10.0.0.22 [10.0.0.22] port 4294954619 at Thu May 22 15:51:05 2025\nMessageID: 1000 (0x3E8), length 18\n    DbCS_BACS_GETFILE\n        Filename: C:\\DbBacs\\spool\\S-00005.DAT\n        Filesize: 18495\n[496] Request from 10.0.0.22 [10.0.0.22] port 4294954620 at Thu May 22 15:51:05 2025\nMessageID: 1007 (0x3EF), length 18\n    DbCS_BACS_KILL_BACS_FILE\n        Filename: C:\\DbBacs\\spool\\S-00005.DAT\n[460] Request from 10.0.0.22 [10.0.0.22] port 4294954621 at Thu May 22 15:51:05 2025\nMessageID: 1001 (0x3E9), length 18\n    DbCS_BACS_PUTFILE\n        Filename: C:\\DbBacs\\spool\\S-00005.DAT\n        Filesize: 0\n[472] Request from 10.0.0.22 [10.0.0.22] port 4294954622 at Thu May 22 15:51:05 2025\nMessageID: 1031 (0x407), length 13\n    DbCS_PROCESS_QUEUE_EX\n[496] Request from 10.0.0.22 [10.0.0.22] port 4294954368 at Thu May 22 15:51:05 2025\nMessageID: 1021 (0x3FD), length 13\n    DbCS_BACS_GET_TIMED_FILE\n        Filename: C:\\DbBacs\\dbbqueue.dat\n        Client time-stamp: 00000000 - Thu Jan 01 00:00:00 1970\n        Server time-stamp: 682F39D9 - Thu May 22 15:51:05 2025\n        Filesize: 1536\n[444] Request from 10.0.0.22 [10.0.0.22] port 4294954369 at Thu May 22 15:51:05 2025\nMessageID: 1033 (0x409), length 5\n    DbCS_BACS_QUEUE_ENTRY_FREE\nMark Vale - mark.vale@oneadvanced.com commented:  Updated Jira\nHi  ,\nI noticed a difference in their tab layout. As you can see, I have a separate tab for 'Sign Data', which is missing in the app screenshot they previously provided. Do you know why this tab is not present on their side?\"\n\n\nAlso, from the log it seems DbCS_BACS_KILL_BACS_FILE is not the problem, I am also getting this called in the in my logs but as you can see in above image, I am getting total value as it was.\nAdditionally, there's no log entry indicating a call to the dbbcodes.dat file. Have they tried updating the dbbcodes.dat file and testing it afterward?\nSomething like this:\nMessageID: 1021 (0x3FD), length 13    DbCS_BACS_GET_TIMED_FILE        Filename: C:\\DBBACS\\DbBacs_Server (4)\\DbBacs_Server\\dbbcodes.dat        Client time-stamp: 00000000 - Thu Jan 01 05:30:00 1970        Server time-stamp: 4635C8CC - Mon Apr 30 16:15:32 2007        Filesize: 1987392\n\n\nHi  I had asked the customer to also let me know what version they were using.\nThe customer has come back to say\n\nThe version of the server in the pack is:\nC:\\DbBacs\u003EDbCSBacsServer.exe -debug -v3 31416@any\nService name will be 'DbCSBacsServer'\nDbCSBacsServer V6.00, build 001.007\nReadLockList: 1 entries\nServer listening on INADDR_ANY.\nsetsockopt(SO_REUSEADDR) gave 0\nServer active on INADDR_ANY [0.0.0.0] port 31416.\nServer function level: 0x0201 (513)\nServing files from: C:\\DbBacs\\ (port 31416)\nVerbosity set to 3\n05/06/25 13:19:44:\nListening for bacs client requests...\n \nSo, presumably the major version ‘6’ is what needs to be compatible – I would also suspect that the client would do a version check when it started up.\n \nAnyway – I have reinstalled the server locally, reinstalled the client locally both from the pack you kindly sent back in Mid May.\n \nAdmittedly I have copied the .DAT files over from the previous installs but that shouldn’t make a difference.\n \nThe problem still exists and I am still curious about this:\n \nMessageID: 1007 (0x3EF), length 18\n    DbCS_BACS_KILL_BACS_FILE\n        Filename: C:\\DBBACSSERVER\\spool\\S-00002.DAT\n[468] Request from 10.0.0.22 [10.0.0.22] port 4294958985 at Thu Jun 05 14:21:27 2025\nMessageID: 1001 (0x3E9), length 18\n    DbCS_BACS_PUTFILE\n        Filename: C:\\DBBACSSERVER\\spool\\S-00002.DAT\n \nThe client is asking the server to ‘KILL’ the file – ie zero it out.\n \nFurthermore , the USER tab is not active in our clients.\n ,\nI am using the same version as the client, but I’m still unable to reproduce the issue. I’ve also tested the scenario where the USER tab is inactive (as per the login configuration settings made by the client), yet the issue does not occur on my end.\nRegarding the concern with 'Kill', during the process, once the file is validated using dbbcodes.dat, a new version of the file is generated with the validated data. This indicates that the process sequence is correct—'Kill' should indeed be called before placing the file. For instance, when I tested using the same file provided by the client, everything worked as expected.\n MessageID: 1021 (0x3FD), length 13    DbCS_BACS_GET_TIMED_FILE        Filename: C:\\DBBACS\\DbBacs_Server (4)\\DbBacs_Server\\dbbcodes.dat        Client time-stamp: 00000000 - Thu Jan 01 05:30:00 1970        Server time-stamp: 4635C8CC - Mon Apr 30 16:15:32 2007        Filesize: 1987392[404] Request from 127.0.0.1 [127.0.0.1] port 4294958080 at Tue Jun 03 16:05:01 2025MessageID: 1007 (0x3EF), length 18    DbCS_BACS_KILL_BACS_FILE        Filename: C:\\DBBACS\\DbBacs_Server (4)\\DbBacs_Server\\spool\\S-00482.DAT[452] Request from 127.0.0.1 [127.0.0.1] port 4294958081 at Tue Jun 03 16:05:01 2025MessageID: 1001 (0x3E9), length 18    DbCS_BACS_PUTFILE        Filename: C:\\DBBACS\\DbBacs_Server (4)\\DbBacs_Server\\spool\\S-00482.DAT        Filesize: 760\nAs you can see, there is a call to dbbcodes.dat in our process, which appears to be missing in their logs. This raises the question—what exactly are they processing under the 'Validate' tab? Are they encountering any errors there?\nAdditionally, even when the 'USER' tab is inactive on my end, I can still see the 'Sign Data' tab, whereas it seems to be missing entirely on their side.\nAs a next step, we can ask them to try using the updated dbbcodes.dat file that we rolled out last month. Also, would it be possible for them to share a screenshot of their profile settings, as well as the configuration under Configure → System → System Options?\nHi  we have had an update from the customer.\nThey said\n“Update from Gordon @ AESSEAL:\nSo, attached is a debug file from the server ( running on my PC in this instance ) – the first processing is from the client on my PC and you can see after the ‘KILL’ file the file to be uploaded is ‘0’ bytes in size.\nThe second process is the same file run from a colleagues PC that used exactly the same installation against the server running on my PC – you can see this time, after the ‘KILL’ that the file to be uploaded has some size.\nI am still convinced it has something to do with a system ‘zip’ dll that isn’t working correctly.\nAs to versions of Windows:\nMy PC : Windows 10 Version 22H2 (x64)\nPC that works: Windows 11 24H2 (x64)\nHowever we have another PC running Windows 10 Version 22H2 (x64) that also works fine; others running Windows 10 Version 22H2 (x64) also don’t work.”\n\nI have added the log files.\n Unfortunately, I’ve tested the application on the available VM, and it appears to be working correctly in all cases, so I haven't been able to pinpoint the issue due to the system dlls.\nThere is ListDLLs (from Sysinternals | Microsoft Learn) which lists all the DLLs loaded by an application at runtime. Could you please ask them to run and see any difference in list?\nSteps -\n\nHi  \nThe customer has replied with the following attachment. I hope it helps.\n \nI’ve compared the files and didn’t find any missing DLL-related functionality. I'm continuing to investigate the code to identify any possible reasons why the event might not be triggering.\nDuring my analysis, I also came across the possibility that the issue could be related to a Windows patch or update. Since it’s working on some Windows 10 machines and not on others, could you please ask the users to check for any differences in the Windows update or patch lists between the working and non-working Windows 10 systems?\nHi  , as told by customer - “ The customer is not prepared to do this, Dev will have test the windows updates themselves.”\nHi   is it possible for you to get access to customer’s machine where it is not working and get the details as below \nMethod  View Installed Updates via Settings\n\nThis will give us some idea to create similar VM environment for us to try reproducing the error. \nHi  , have asked customer for meeting. Will keep you updated.\nHi  the customer has come back with the following which i have attached. Gordon (gbrownlt) is the user with the issue.\nUpdate: Praveen has asked customer about which machine updates is working one, thus currently waiting for that clarification.\nHi Praveen\n1 doesn't work and 2&3 are working.\n\nThanks \nJon\nHi ,\nI have attached dbbacs-dlls.zip which contain two dll files. Please add those files in folder where Dbbacs client is installed (Dbbacs.exe). Make sure to restart the client and check. If this still does not work, please perform the following and check again.\nOn your Win10 system, try temporarily disabling pnrpnsp.dll as a provider:\n\n(or easier: rename C:\\Windows\\SysWOW64\\pnrpnsp.dll to test — but only after backup, as it’s system-protected). \nThank you  , waiting for the customer to install new updates."
+    },
+    {
+      "key": "VDM-1809",
+      "summary": "Node upgraded Smartmail Testing",
+      "status": "Done",
+      "description": "",
+      "comments": ""
+    },
+    {
+      "key": "VDM-1806",
+      "summary": "Node upgrade- Smart mail testing and bug fixing",
+      "status": "Done",
+      "description": "",
+      "comments": "Node upgrade changes has been done.Working on building the msi."
+    },
+    {
+      "key": "VDM-1805",
+      "summary": "Sql 2022 compatibility check ",
+      "status": "Done",
+      "description": "",
+      "comments": "The SQL 2022 is not compatible with node version 22 thus we need dev work to provide a fix. I have created   for dev work required for this task."
+    },
+    {
+      "key": "VDM-1804",
+      "summary": "Oracle 19 C compatibility ",
+      "status": "Done",
+      "description": "",
+      "comments": ""
+    },
+    {
+      "key": "VDM-1802",
+      "summary": "dates in smartretrieve 2021/v5.0 are in US format.",
+      "status": "Done",
+      "description": {
+        "type": "doc",
+        "version": 1,
+        "content": [
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "as per TASK0026589/"
+              },
+              {
+                "type": "inlineCard",
+                "attrs": {
+                  "url": "https://advancedcsg.atlassian.net/browse/VDM-1800#icft=VDM-1800"
+                }
+              },
+              {
+                "type": "text",
+                "text": ":"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "dates in smartretrieve 2021/v5.0 are in US format."
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "fix was previously done in v4.7 but not ported forward into linux code for 2021/5.0"
+              }
+            ]
+          }
+        ]
+      },
+      "comments": "Hi,\nI've attached the retrieve-2021.0.0.10.js file. Please replace the existing file in smartportal/ui/source/v1/modules and run your tests. Let me know if it works as expected—if so, I'll proceed with updating the build on Distrib.\nUpdates:  The fix provided worked but there was another issue which search using date when manually entered. This was informed through mail.\nThe following query has been sent to Nathan through mail.\n“I’ve tested the functionality on my end but couldn’t reproduce the issue, everything appears to be working as expected.\nCould you please confirm if you're using version 2021.0.0.10?\nWhen I begin typing the date, the date picker opens automatically and reflects the same date that was entered. Is this behaviour not occurring on your machine?\nAlso, could you let me know which browser you're using?”\nI have attached JS file with the fix for date format issue in advanced search using between date queries. The second date format displayed US format even thou UK format is selected. This has been fixed and sending the same file to Steve for testing.\n.\nLinux build has been updated - v2021.0.0.11"
+    },
+    {
+      "key": "VDM-1801",
+      "summary": "Overall Testing of V1 for NodeJs upgrade",
+      "status": "Done",
+      "description": "",
+      "comments": ""
+    },
+    {
+      "key": "VDM-1800",
+      "summary": "dates in smartretrieve 2021/v5.0 are in US format.",
+      "status": "Development Required",
+      "description": {
+        "type": "doc",
+        "version": 1,
+        "content": [
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "dates in smartretrieve 2021/v5.0 are in US format."
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "fix was previously done in v4.7 but not ported forward into linux code for 2021/5.0"
+              }
+            ]
+          }
+        ]
+      },
+      "comments": " do you have an estimated date for when this will be resolved please?\n Hi, this requires development effort, so kindly raise a “Problem” Jira ticket for the task. Regarding the estimated timeline, it may take some time to pick this up due to ongoing security fixes, but we're tentatively looking at mid-May.\n Thank you!"
+    },
+    {
+      "key": "VDM-1799",
+      "summary": "DbBacs Test for Websigner 1.8 with minidriver",
+      "status": "Done",
+      "description": {
+        "type": "doc",
+        "version": 1,
+        "content": [
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Test the websigner 1.8 as per the details in email attached. This issue is related to "
+              },
+              {
+                "type": "text",
+                "text": "[DMC-8938] Issue with DbBacs - Advanced LIVE",
+                "marks": [
+                  {
+                    "type": "link",
+                    "attrs": {
+                      "href": "https://advancedcsg.atlassian.net/browse/DMC-8938"
+                    }
+                  }
+                ]
+              },
+              {
+                "type": "text",
+                "text": " and "
+              },
+              {
+                "type": "text",
+                "text": "[DMC-8936] Issue with DbBacs - Advanced LIVE",
+                "marks": [
+                  {
+                    "type": "link",
+                    "attrs": {
+                      "href": "https://advancedcsg.atlassian.net/browse/DMC-8936"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "comments": ""
+    },
+    {
+      "key": "VDM-1798",
+      "summary": "Testing new build for Swift view - DMC-3551",
+      "status": "Done",
+      "description": "",
+      "comments": ""
+    },
+    {
+      "key": "VDM-1797",
+      "summary": "Testing and fixing NIS and Web portal",
+      "status": "Done",
+      "description": "",
+      "comments": ""
+    },
+    {
+      "key": "VDM-1796",
+      "summary": ".NET exception error",
+      "status": "Rejected",
+      "description": {
+        "type": "doc",
+        "version": 1,
+        "content": [
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Intermittent error occurs 1-2 times per day. Looks to be a memory leak, is there anything that can be implemented to prevent or mitigate the interruptions?"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "The issue is happening for various different people when they are logged into DbCapture Admin when they:"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Click F5 to refresh the screen"
+              },
+              {
+                "type": "hardBreak"
+              },
+              {
+                "type": "text",
+                "text": "Click the Refresh button to refresh the screen"
+              },
+              {
+                "type": "hardBreak"
+              },
+              {
+                "type": "text",
+                "text": "Open a document to view it"
+              },
+              {
+                "type": "hardBreak"
+              },
+              {
+                "type": "text",
+                "text": "They click OK to the error message that appears, DbCapture grid goes blank, they come out, log back in and all is ok."
+              }
+            ]
+          }
+        ]
+      },
+      "comments": "Successful attachment sync from ServiceNow\nGenerally, This type of issues are extremely rare in DBCapture. How often people are getting affected? Are they shared same DbLogin and DBCapture?Please run room service script, restart all the services and check it again.  \n I’ve attached a CSV with a recent listing of service crashes caused by this.Can you advise what you mean by “room service script”? All V1 services are restarted regularly.\n  Room service is script which Ps or Support is used to restart all v1 services.Can you please provide the error message screenshot and event viewer error message to understand the problem’s root cause?Thanks\nRequested has been attached\nHi  , It seems DBCapComms 31451 service involved in issue. can ou please below logs files.1. After this issue happened and log files on that day.\n\n\n3. \n\nlet me know if you have an query. Thanks\nHi, waiting on customer response for suggestion to update system to TCP from HTTP.\nWill ask customer for the below log files as well, thanks.\nClosing the case due to no response from the customer for an extended period"
+    },
+    {
+      "key": "VDM-1795",
+      "summary": "Deleting a Locked DbBACS file causes DbBACS to fall over - DMC-6982",
+      "status": "To Do",
+      "description": {
+        "type": "doc",
+        "version": 1,
+        "content": [
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Refer "
+              },
+              {
+                "type": "inlineCard",
+                "attrs": {
+                  "url": "https://advancedcsg.atlassian.net/browse/DMC-6982"
+                }
+              },
+              {
+                "type": "text",
+                "text": " for more details on bug."
+              }
+            ]
+          }
+        ]
+      },
+      "comments": "  Can you please update the comment on the work done on this card. If not required can we close/reject this card.\nCC;-  \n \nThis task is related to bug, which was reported by customers in 2021, .\nThe original issue was closed this year by recommending customers switch from the Linux build to the Windows build, due to limitations with outdated technologies and a lack of expertise in that area. As a result, the issue remains unresolved on the Linux build. However, this task is still necessary—we need to address and fix the issue to prevent further reports from customers using Linux DBBACS (as per support there are many customers using Linux version of Dbbacs).\nCC:   "
+    },
+    {
+      "key": "VDM-1794",
+      "summary": "Issue with DbCapture on WMAS re: only part of the invoice values picked up by dbcapture",
+      "status": "Done",
+      "description": {
+        "type": "doc",
+        "version": 1,
+        "content": [
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "previously "
+              },
+              {
+                "type": "text",
+                "text": "https://advancedcsg.atlassian.net/browse/VDM-1770",
+                "marks": [
+                  {
+                    "type": "link",
+                    "attrs": {
+                      "href": "https://advancedcsg.atlassian.net/browse/VDM-1770"
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "also previously "
+              },
+              {
+                "type": "inlineCard",
+                "attrs": {
+                  "url": "https://advancedcsg.atlassian.net/browse/DMC-8864#icft=DMC-8864"
+                }
+              },
+              {
+                "type": "hardBreak"
+              },
+              {
+                "type": "text",
+                "text": "https://oneadvanced--zsfjira.vf.force.com/apex/zsfjira__ZIssueDetails?issueKey=DMC-8864",
+                "marks": [
+                  {
+                    "type": "link",
+                    "attrs": {
+                      "href": "https://oneadvanced--zsfjira.vf.force.com/apex/zsfjira__ZIssueDetails?issueKey=DMC-8864"
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Our client West Midlands Ambulance Service is currently experiencing issues with DbCapture were only part of the invoice values, such as pence figures, are being picked up on an invoice template instead of pounds. I have attached a screenshot of the issue. The Trust has asked that this be logged with Marc Foord as they have previously looked at this issue."
+              }
+            ]
+          }
+        ]
+      },
+      "comments": " This was discussed in last Jira as well. Please confirm, Is this only for specific vendors documents only or that perticular document? I and ABBYY both tried but weren’t able to reproduce the issue. If its for multiple document, need to check with them all. Share those docs.Thanks\nHi  As you comment on   and shared screenshot but actualy we need docuemnts which are making impact. Can you get those from customer?\nHi  , Can you please confirm the DBCapture app is TCP or not?\n\nHi  ,Can you please take backup of DbCapOCRServer.exe and put this one and check? at “..\\V1Home\\DbCapture\\DbCapOCRServer\\”\nThe solution was provided, and we haven't received any response from the customer or support team. Since there has been no update for over a month, we are closing this ticket."
+    },
+    {
+      "key": "VDM-1793",
+      "summary": "Testing Linux build for CTR-3549",
+      "status": "Done",
+      "description": "",
+      "comments": "Testing done, found issue with Linux build. New Jira for fixing the bug will be created."
+    },
+    {
+      "key": "VDM-1791",
+      "summary": "ESCROW - V1 Source deposit for SDC Builders Limited",
+      "status": "Done",
+      "description": "",
+      "comments": "V1 4.7 code has been uploaded on FTP server and Deposit form has been mailed to LE&AS’s support.\nClosing this task"
+    },
+    {
+      "key": "VDM-1790",
+      "summary": "Sage X3 compliance with V1 using R14 - Configuration and testing ",
+      "status": "Open",
+      "description": {
+        "type": "doc",
+        "version": 1,
+        "content": [
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Explore the configuration document."
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Configure Sage X3 and V1 using R14 installer"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Test all functionality for EDD, EDM and PIA"
+              }
+            ]
+          }
+        ]
+      },
+      "comments": "Handover KT is done , and Sage X3 latest version has been installed on new VM for further testing.\nGo through the v1dm application documentation and application walkthrough. Try the integration of sage with R13 but got some errors. Now will do the fresh integration of latest sage on new VM. Currently working on mobile app KS so will continue on this after a week."
+    },
+    {
+      "key": "VDM-1789",
+      "summary": "DbBacs sort code update",
+      "status": "Done",
+      "description": {
+        "type": "doc",
+        "version": 1,
+        "content": [
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Monthly dbbacs sort code update."
+              }
+            ]
+          }
+        ]
+      },
+      "comments": ""
+    },
+    {
+      "key": "VDM-1788",
+      "summary": "Node Upgrade to version 22 - Smartmail/Webportal",
+      "status": "Done",
+      "description": "",
+      "comments": "Worked on Smart mail changes for node upgrade and shared the changes to Saddam."
+    },
+    {
+      "key": "VDM-1787",
+      "summary": "Node upgrade to 22 NIS Part -2 ",
+      "status": "Done",
+      "description": "",
+      "comments": "Dev work done"
+    },
+    {
+      "key": "VDM-1786",
+      "summary": "Node upgrade to 22 for NIS Part -1 ",
+      "status": "Done",
+      "description": "",
+      "comments": ""
+    },
+    {
+      "key": "VDM-1785",
+      "summary": "Node upgrade to 22 for Smart mail Part - 2",
+      "status": "Done",
+      "description": "",
+      "comments": "  - Could you please add the comments. \nDone\nIt’s is done. Testing is pending for this."
+    },
+    {
+      "key": "VDM-1784",
+      "summary": "Node upgrade to 22 version - Smartmail Part-1",
+      "status": "Done",
+      "description": "",
+      "comments": "Partially code changes have been completed"
+    },
+    {
+      "key": "VDM-1783",
+      "summary": "Node upgrade to 22 version - HTTP Server - Part -1",
+      "status": "Done",
+      "description": "",
+      "comments": "Index.js, App.js and www file code changes\nNode 22 version related changes have been done in all js files"
+    },
+    {
+      "key": "VDM-1782",
+      "summary": "Quarterly DbBacs Meeting with Mastercard",
+      "status": "In Development",
+      "description": "",
+      "comments": "In progress"
+    },
+    {
+      "key": "VDM-1781",
+      "summary": "Java SDK - LOG4J Vulnerability - BRD-V1LIN64-VM - Security",
+      "status": "Done",
+      "description": {
+        "type": "doc",
+        "version": 1,
+        "content": [
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Deleting all files from server"
+              }
+            ]
+          }
+        ]
+      },
+      "comments": "This was raised in mail from security team."
+    },
+    {
+      "key": "VDM-1780",
+      "summary": "Testing Offline License Server for SmartMail",
+      "status": "Done",
+      "description": {
+        "type": "doc",
+        "version": 1,
+        "content": [
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Datel need to ship everything to local environment and avoid any connection over the internet. Hense, we need solution for eliminating the calls made to our live license server for any check from Sendmail."
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Test if offline server works for Sendmail. "
+              }
+            ]
+          }
+        ]
+      },
+      "comments": "Tested and offline server works with sendmail."
+    },
+    {
+      "key": "VDM-1778",
+      "summary": "CLONE - Issue with DbCapture on WMAS",
+      "status": "Rejected",
+      "description": {
+        "type": "doc",
+        "version": 1,
+        "content": [
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Issue with DbCapture on WMAS"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "inlineCard",
+                "attrs": {
+                  "url": "https://advancedcsg.atlassian.net/browse/DMC-8864#icft=DMC-8864"
+                }
+              },
+              {
+                "type": "hardBreak"
+              },
+              {
+                "type": "text",
+                "text": "https://oneadvanced--zsfjira.vf.force.com/apex/zsfjira__ZIssueDetails?issueKey=DMC-8864",
+                "marks": [
+                  {
+                    "type": "link",
+                    "attrs": {
+                      "href": "https://oneadvanced--zsfjira.vf.force.com/apex/zsfjira__ZIssueDetails?issueKey=DMC-8864"
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Hi,"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Our client West Midlands Ambulance Service is currently experiencing issues with DbCapture were only part of the invoice values, such as pence figures, are being picked up on an invoice template instead of pounds. I have attached a screenshot of the issue. The Trust has asked that this be logged with Marc Foord as they have previously looked at this issue."
+              }
+            ]
+          }
+        ]
+      },
+      "comments": "Wrong cloned"
+    },
+    {
+      "key": "VDM-1777",
+      "summary": "Release Build Preparation",
+      "status": "In Development",
+      "description": "",
+      "comments": "In progress"
+    },
+    {
+      "key": "VDM-1776",
+      "summary": "Release Note Preparation",
+      "status": "Rejected",
+      "description": "",
+      "comments": "Duplicate"
+    },
+    {
+      "key": "VDM-1775",
+      "summary": "DBbacs sort code update",
+      "status": "Done",
+      "description": "",
+      "comments": ""
+    },
+    {
+      "key": "VDM-1774",
+      "summary": "Java upgrade SDK 17",
+      "status": "Done",
+      "description": "",
+      "comments": ""
+    },
+    {
+      "key": "VDM-1773",
+      "summary": "V1 DM scrum meeting and planning meeting",
+      "status": "Done",
+      "description": "",
+      "comments": ""
+    },
+    {
+      "key": "VDM-1772",
+      "summary": "Scrum planning",
+      "status": "In Development",
+      "description": "",
+      "comments": "In progress"
+    },
+    {
+      "key": "VDM-1771",
+      "summary": "Daily Stand up",
+      "status": "In Development",
+      "description": "",
+      "comments": "In progress"
+    },
+    {
+      "key": "VDM-1770",
+      "summary": "Issue with DbCapture on WMAS",
+      "status": "Development Required",
+      "description": {
+        "type": "doc",
+        "version": 1,
+        "content": [
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Issue with DbCapture on WMAS"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "inlineCard",
+                "attrs": {
+                  "url": "https://advancedcsg.atlassian.net/browse/DMC-8864#icft=DMC-8864"
+                }
+              },
+              {
+                "type": "hardBreak"
+              },
+              {
+                "type": "text",
+                "text": "https://oneadvanced--zsfjira.vf.force.com/apex/zsfjira__ZIssueDetails?issueKey=DMC-8864",
+                "marks": [
+                  {
+                    "type": "link",
+                    "attrs": {
+                      "href": "https://oneadvanced--zsfjira.vf.force.com/apex/zsfjira__ZIssueDetails?issueKey=DMC-8864"
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Hi,"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Our client West Midlands Ambulance Service is currently experiencing issues with DbCapture were only part of the invoice values, such as pence figures, are being picked up on an invoice template instead of pounds. I have attached a screenshot of the issue. The Trust has asked that this be logged with Marc Foord as they have previously looked at this issue."
+              }
+            ]
+          }
+        ]
+      },
+      "comments": "  There needs to be check on the profiles and code to why for this perticular vendor or types of documents are not working. I also might needs to raise with ABBYY again. Pls create this a problem.\nMarc Foord - Marc.Foord@oneadvanced.com commented:  hi mohsin it's already been re-raised as https://advancedcsg.atlassian.net/browse/VDM-1770 assuming that's what you meant. otherwise let me know what you mean by creating a problem....... thanks Marc\n To convert it into a defect this might be “Problem” I guess.\nHi  the customer has replied regarding this case. they have said\n“I am attaching 3 screen prints for the supplier Midlands Truck and Van relating to 2023 invoices which I have dragged over to DbCapture today and the problem is still there.\n \nI provided responses to several emails from Advanced regarding the issue, the last being as far as I am aware, in November 2024.  I haven’t heard anything since.\n \nDue to the length of time the issue has been going I am unable to confirm if it is just this supplier or if it is other suppliers as well.  It isn’t something that has happened often so when it has occurred, I have amended the figures manually.\n \nNB It doesn’t happen on all Midland Truck and Van invoices.\n \nI have also attached the screenshots that they have sent across.”\nHi   the customer has sent in 5 invoices. 3 older examples and two of them are new.  \nHi  have you any updates in regards to this Jira?\nHi  the customer has come back and said that they have version 4.7 which is the HTTP version."
+    },
+    {
+      "key": "VDM-1768",
+      "summary": "JIRA review meeting with support",
+      "status": "In Development",
+      "description": "",
+      "comments": "In progress"
+    },
+    {
+      "key": "VDM-1767",
+      "summary": "OCR VAT recognition issue",
+      "status": "Rejected",
+      "description": {
+        "type": "doc",
+        "version": 1,
+        "content": [
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "When templating, I have come across a supplier where the invoice does state their VAT registration number, but the capture isn't reading the numbers correctly and is interpreting a 7 as a slash. This means it isn't using GB VAT detection as the template type.  Is there a way I can force the correction of the VAT number so it reads it correctly and sets the template type appropriately? I can't seem to get the non VAT detection or Query Database to work either."
+              }
+            ]
+          }
+        ]
+      },
+      "comments": "No additional attachments eligible to sync from ServiceNow\nSuccessful attachment sync from ServiceNow\nPlease provide more documents as trying to reproduce locally. \n , Is there any update?If no, can we close this JIRA?\nMark Vale - mark.vale@oneadvanced.com commented:  Case number is CS0022094\nHi  I have asked them one last time for more invoices that have been affected. If they don’t respond with some docs by the end of the week i will be happy to close it.\nI got confirmaiton from  on https://advancedcsg.atlassian.net/browse/DMC-8931 to close."
+    },
+    {
+      "key": "VDM-1765",
+      "summary": "00027481: EDM Upload limited to 10 MB",
+      "status": "Rejected",
+      "description": {
+        "type": "doc",
+        "version": 1,
+        "content": [
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "The customer is getting an error that complaining about the size \"The file too large. Maximum size: 10240 KB\" when trying to upload a file size that is more than 10MB. "
+              },
+              {
+                "type": "hardBreak"
+              },
+              {
+                "type": "text",
+                "text": "They go to a Sales Order, the click on the Archive Attachment function and upload a file that is more than 10MB. We have increased the size in Nodelocal but still the error persists. "
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "We have increased the value of EDMMAILMAX parameter to 1000, but the customer still has the issue, we have tested on our side and getting the same. Please advise."
+              }
+            ]
+          }
+        ]
+      },
+      "comments": "As per the documentation \nEDM for Sage X3 - Server Implementation.pdf\nThe EDMMAILMAX parameter takes “The maximum size of an attachment in megabytes”. The values as options are “5, 10, 25, 50”. Thus, if you are trying to upload a file more than 10 MB, could please set EDMMAILMAX as 25 and test again?\nMark Vale - mark.vale@oneadvanced.com commented:  Hi Sejal, The customer has responded with 'Thank you for the response, I have made the changes on the parameters as you mentioned, however I am still getting the same error message' I have attached a file showing the error Regards Mark\n  Hi Mark, for further investigation, can we get some screenshot of the issue and NIS logs? \nSuccessful attachment sync from ServiceNow\nHi  ,\nI have attached some files which may help.\nRegards\nMark\nHi  ,\nAs discussed, please arrange a call with customer, including Steve to see the issue on their end.\nHi  The customer has contacted me to say that they have resolved this case.\nCan you please close this Jira. Thanks\nSupport case closed thus closing JIRA."
+    },
+    {
+      "key": "VDM-1764",
+      "summary": "Support to Efin and OA team",
+      "status": "Done",
+      "description": "",
+      "comments": ""
+    },
+    {
+      "key": "VDM-1763",
+      "summary": "Sage X3 Upgrade Information for EDD/V1",
+      "status": "With Support",
+      "description": {
+        "type": "doc",
+        "version": 1,
+        "content": [
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "BG Products, Inc. will be upgrading our Sage X3 ERP system to v12 patch 36 (2024R2) in the coming months.  "
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Will EDD/V1 support Sage X3 version 12/patch 36/2024 R2 (November 2024 release date)?"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Please let us know if any additional information is needed from us. "
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "The following information is what we’ve received for any systems integrated with Sage X3:"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "1.\tA test environment will be required for the new version"
+              },
+              {
+                "type": "hardBreak"
+              },
+              {
+                "type": "text",
+                "text": "2.\tWe will be moving servers so EDD/V1 will need to update for the new servers or send us documentation on how to update for new server names or IP addresses"
+              },
+              {
+                "type": "hardBreak"
+              },
+              {
+                "type": "text",
+                "text": "3.\tThe folder schema will remain the same"
+              },
+              {
+                "type": "hardBreak"
+              },
+              {
+                "type": "text",
+                "text": "4.\tWeb/pool services will have a new address"
+              }
+            ]
+          }
+        ]
+      },
+      "comments": " \nHas anyone from PS confirmed whether the new Sage patch is compatible with V1? Are they checking this, or are they upgrading it directly?\nHi  no I don’t believe so, I checked this with Richard and he mentioned it may need to go to Heal Desk. Will check this with Sales/Andy Taylor\nHi  \nFor this I believe the latest was that you and Steve was going to set up a VM for future testing?\nAlso Steve confirmed that V1 will integrate with the latest version of Sage X3 which I think is - Sage X3 version 12/patch 36/2024 R2 (November 2024 release date)\n Updates - We are still in process of getting latest Sage environment, as we can no longer use their default env due to our policy of VM ware, we have requested AWS AMI for Sage testing. "
+    },
+    {
+      "key": "VDM-1762",
+      "summary": "KT for node upgrade to Saddamhusen",
+      "status": "Done",
+      "description": {
+        "type": "doc",
+        "version": 1,
+        "content": [
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "KT to Saddamhusen"
+              }
+            ]
+          }
+        ]
+      },
+      "comments": ""
+    },
+    {
+      "key": "VDM-1761",
+      "summary": "Testing SQL 2019 patch update for V1",
+      "status": "Done",
+      "description": {
+        "type": "doc",
+        "version": 1,
+        "content": [
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Test new patch update : "
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "inlineCard",
+                "attrs": {
+                  "url": "https://learn.microsoft.com/en-us/troubleshoot/sql/releases/sqlserver-2019/cumulativeupdate30"
+                }
+              },
+              {
+                "type": "text",
+                "text": " "
+              }
+            ]
+          }
+        ]
+      },
+      "comments": ""
+    },
+    {
+      "key": "VDM-1760",
+      "summary": "Sage KT",
+      "status": "Done",
+      "description": {
+        "type": "doc",
+        "version": 1,
+        "content": [
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Handover to Meet for Sage compatibility task."
+              }
+            ]
+          }
+        ]
+      },
+      "comments": "KT done"
+    },
+    {
+      "key": "VDM-1759",
+      "summary": "Test Dbbacs compatibility for Windows server 2022",
+      "status": "Done",
+      "description": "",
+      "comments": ""
+    },
+    {
+      "key": "VDM-1757",
+      "summary": "DbForms Vulnerabilities",
+      "status": "Rejected",
+      "description": {
+        "type": "doc",
+        "version": 1,
+        "content": [
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Following on from the beginning of the February checks we require to find out the fine details for DBforms."
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "With the new vulnerability fix for dbform.exe Version 5.0(2020.1) comes with R4.7 Node.exe we require to know the actual date that a fix will be ready and can be implemented from both parties. "
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "So, my question is can we get the exact date this is being addressed? "
+              },
+              {
+                "type": "hardBreak"
+              },
+              {
+                "type": "text",
+                "text": "When will the fix be ready?"
+              },
+              {
+                "type": "hardBreak"
+              },
+              {
+                "type": "text",
+                "text": "Will the fix/vulnerability impact any other of our applications e.g Intuita/Flexi/eBilling? "
+              },
+              {
+                "type": "hardBreak"
+              },
+              {
+                "type": "text",
+                "text": "What is the impact of this vulnerability? What happens if the vulnerability isn’t addressed?"
+              },
+              {
+                "type": "hardBreak"
+              },
+              {
+                "type": "text",
+                "text": "Are there any other potential vulnerabilities that we need to be aware of? Please can you provide dates/times that apply"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "We need this information for audit purposes as well as to be prepared to address and fix the potential vulnerability that could affect DBforms as well as other applications in our scope."
+              }
+            ]
+          }
+        ]
+      },
+      "comments": "Rejecting as this is duplicate of "
+    },
+    {
+      "key": "VDM-1756",
+      "summary": "DbForms Vulnerabilities",
+      "status": "Resolved",
+      "description": {
+        "type": "doc",
+        "version": 1,
+        "content": [
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "With the new vulnerability fix for dbform.exe Version 5.0(2020.1) comes with R4.7 Node.exe we require to know the actual date that a fix will be ready and can be implemented from both parties. "
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "So, my question is can we get the exact date this is being addressed? "
+              },
+              {
+                "type": "hardBreak"
+              },
+              {
+                "type": "text",
+                "text": "When will the fix be ready?"
+              },
+              {
+                "type": "hardBreak"
+              },
+              {
+                "type": "text",
+                "text": "Will the fix/vulnerability impact any other of our applications e.g Intuita/Flexi/eBilling? "
+              },
+              {
+                "type": "hardBreak"
+              },
+              {
+                "type": "text",
+                "text": "What is the impact of this vulnerability? What happens if the vulnerability isn’t addressed?"
+              },
+              {
+                "type": "hardBreak"
+              },
+              {
+                "type": "text",
+                "text": "Are there any other potential vulnerabilities that we need to be aware of? Please can you provide dates/times that apply"
+              }
+            ]
+          }
+        ]
+      },
+      "comments": "Could you please provide vulnerabilities details? \nWhat is the connection between Dbform.exe and Node.exe? Could you please explain the usage in detail.\nKindly mention the priority of this case. \nMark Vale - mark.vale@oneadvanced.com commented:  Hi Sejal, The update from the customer is They are following up on a message that they got last month saying that we had identified a security vulnerability in Node.exe and there is an ongoing development sprint to address this. The dbform.exe Version 5.0(2020.1) comes with R4.7. Do we have any further update? Regards Mark\nHi , I have just had a message from the customer asking for an update. Do you have any further information? Any idea about when it’ll be done by, they are asking about a day when it’ll be done by.\nHi  , as planned the code changes and dev environment testing/fixing any bugs are almost done. We will perform Regression testing of the new builds from next week on different VMs/Environment. If everything goes well with no major issue, we will be able to provide NIS, HTTP Server and Web portal build by 15th May. I suppose the customer is on windows, correct?  Just confirming so I can give priority to Windows builds.\nHi  They have confirmed that they are using Windows. Thank you.\nHi  this Jira can be closed off as it is a duplicate of \nThank you\nMark\nClosing this as the solution for this has been already provided in Node update and confirmed by support to close this card.\nMark Vale - mark.vale@oneadvanced.com commented:  https://advancedcsg.atlassian.net/browse/DMC-8908"
+    },
+    {
+      "key": "VDM-1752",
+      "summary": "Testing node upgrade for windows and Linux",
+      "status": "Done",
+      "description": {
+        "type": "doc",
+        "version": 1,
+        "content": [
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Test node upgrade for windows and Linux"
+              }
+            ]
+          }
+        ]
+      },
+      "comments": ""
+    },
+    {
+      "key": "VDM-1751",
+      "summary": "Node upgrade - Development",
+      "status": "Done",
+      "description": {
+        "type": "doc",
+        "version": 1,
+        "content": [
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Upgrade node to 22 version."
+              }
+            ]
+          }
+        ]
+      },
+      "comments": ""
+    },
+    {
+      "key": "VDM-1750",
+      "summary": "Node upgrade to 22 version - NIS and Webportal",
+      "status": "Done",
+      "description": "",
+      "comments": "Development and fixing done. Tested in Windows Env and added fix for Linux."
+    },
+    {
+      "key": "VDM-1749",
+      "summary": "Testing for Windows and Linux",
+      "status": "Rejected",
+      "description": {
+        "type": "doc",
+        "version": 1,
+        "content": [
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Test for windows and Linux compatibility"
+              }
+            ]
+          }
+        ]
+      },
+      "comments": ""
+    },
+    {
+      "key": "VDM-1748",
+      "summary": "Node upgrade - Development ",
+      "status": "Rejected",
+      "description": {
+        "type": "doc",
+        "version": 1,
+        "content": [
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Upgrade node to 22 version and should be compatible with windows and Linux"
+              }
+            ]
+          }
+        ]
+      },
+      "comments": ""
+    },
+    {
+      "key": "VDM-1747",
+      "summary": "Node upgrade to 22 version - Smartmail",
+      "status": "Done",
+      "description": "",
+      "comments": "Done\nDone"
+    },
+    {
+      "key": "VDM-1746",
+      "summary": "Testing - Windows and Linux",
+      "status": "Done",
+      "description": {
+        "type": "doc",
+        "version": 1,
+        "content": [
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Test for windows and Linux"
+              }
+            ]
+          }
+        ]
+      },
+      "comments": ""
+    }
+  ]
+}
