@@ -3,17 +3,17 @@ import './App.css';
 
 function App() {
   const [searchQuery, setSearchQuery] = useState('');
-  const [results, setResults] = useState('');
+  const [results, setResults] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
   const handleSearch = async () => {
     if (!searchQuery.trim()) {
-      setResults('Please enter a search query');
+      setResults({ type: 'warning', message: 'Please enter a search query' });
       return;
     }
 
     setIsLoading(true);
-    setResults('Searching...');
+    setResults({ type: 'loading' });
 
     try {
       console.log('Sending search request:', searchQuery);
@@ -41,40 +41,20 @@ function App() {
       
       // Format the results for better display with AI suggestions
       if (data.similarIssues && data.similarIssues.length > 0) {
-        const formattedResults = ` Smart Search Results for: "${searchQuery}"\n` +
-          `Found ${data.total} similar issues\n\n` +
-          
-          `SIMILAR ISSUES:\n` +
-          `${'='.repeat(50)}\n` +
-          data.similarIssues.map((issue, index) => 
-            `${index + 1}. ${issue.key} - ${issue.summary}\n` +
-            `   📈 Similarity: ${issue.similarityPercentage}\n` +
-            `   📋 Status: ${issue.status}\n` +
-            `   📝 Description: ${issue.text ? issue.text.substring(0, 150) + '...' : 'No description'}\n`
-          ).join('\n') + 
-          
-          `\n🤖 AI RESOLUTION SUGGESTION:\n` +
-          `${'='.repeat(50)}\n` +
-          `${data.aiSuggestion || 'No AI suggestion available'}\n\n` +
-          
-          `📋 Raw API Response:\n` +
-          `${'='.repeat(50)}\n` +
-          JSON.stringify(data, null, 2);
-        
-        setResults(formattedResults);
+        setResults({ type: 'success', data: data });
       } else {
-        setResults(`No issues found for query: "${searchQuery}"\n\nTry searching for:\n- Issue summaries\n- Keywords from descriptions\n- Assignee names\n- Status names`);
+        setResults({ type: 'empty', query: searchQuery });
       }
     } catch (error) {
       console.error('Search error:', error);
-      setResults(`Error: ${error.message}\n\nMake sure your backend server is running on http://localhost:5000`);
+      setResults({ type: 'error', message: error.message });
     } finally {
       setIsLoading(false);
     }
   };
 
   const handleClearResults = () => {
-    setResults('');
+    setResults(null);
   };
 
   const handleKeyPress = (e) => {
@@ -116,12 +96,99 @@ function App() {
               </button>
             )}
           </div>
-          <textarea
-            className="results-textarea"
-            placeholder="Search results will appear here..."
-            value={results}
-            readOnly
-          />
+          
+          {!results && (
+            <div className="results-placeholder">
+              <p>🔍 Search results will appear here...</p>
+              <p>Try searching for issue summaries, keywords, or descriptions</p>
+            </div>
+          )}
+          
+          {results?.type === 'loading' && (
+            <div className="results-loading">
+              <div className="loading-spinner"></div>
+              <p>🔍 Searching for similar issues...</p>
+            </div>
+          )}
+          
+          {results?.type === 'warning' && (
+            <div className="results-warning">
+              <p>⚠️ {results.message}</p>
+            </div>
+          )}
+          
+          {results?.type === 'error' && (
+            <div className="results-error">
+              <h3>❌ Search Error</h3>
+              <p>{results.message}</p>
+              <p>Make sure your backend server is running on http://localhost:5000</p>
+            </div>
+          )}
+          
+          {results?.type === 'empty' && (
+            <div className="results-empty">
+              <h3>🤷‍♂️ No Issues Found</h3>
+              <p>No similar issues found for: "{results.query}"</p>
+              <div className="search-tips">
+                <h4>Try searching for:</h4>
+                <ul>
+                  <li>Issue summaries</li>
+                  <li>Keywords from descriptions</li>
+                  <li>Error messages</li>
+                  <li>Component names</li>
+                </ul>
+              </div>
+            </div>
+          )}
+          
+          {results?.type === 'success' && (
+            <div className="results-success">
+              <div className="search-summary">
+                <h3>🔍 Smart Search Results</h3>
+                <p>Query: <strong>"{results.data.query}"</strong></p>
+                <p>Found <strong>{results.data.total}</strong> similar issues</p>
+              </div>
+              
+              <div className="similar-issues">
+                <h4>📊 Similar Issues</h4>
+                <div className="issues-grid">
+                  {results.data.similarIssues.map((issue, index) => (
+                    <div key={issue.key} className="issue-card">
+                      <div className="issue-header">
+                        <span className="issue-key">{issue.key}</span>
+                        <span className="similarity-badge">{issue.similarityPercentage}</span>
+                      </div>
+                      <h5 className="issue-title">{issue.summary}</h5>
+                      <div className="issue-meta">
+                        <span className="status-badge status-{issue.status?.toLowerCase()}">
+                          {issue.status}
+                        </span>
+                      </div>
+                      <p className="issue-description">
+                        {issue.text ? issue.text.substring(0, 150) + '...' : 'No description available'}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+              
+              {results.data.aiSuggestion && (
+                <div className="ai-suggestion">
+                  <h4>🤖 AI Resolution Suggestion</h4>
+                  <div className="suggestion-content">
+                    {results.data.aiSuggestion.split('\n').map((line, index) => (
+                      <p key={index}>{line}</p>
+                    ))}
+                  </div>
+                </div>
+              )}
+              
+              <details className="raw-data">
+                <summary>📋 View Raw API Response</summary>
+                <pre>{JSON.stringify(results.data, null, 2)}</pre>
+              </details>
+            </div>
+          )}
         </div>
       </div>
     </div>

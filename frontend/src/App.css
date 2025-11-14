@@ -121,6 +121,244 @@ h1 {
   box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
 }
 
+/* Results Styling */
+.results-placeholder {
+  text-align: center;
+  padding: 40px;
+  color: #666;
+  background: #f8f9fa;
+  border-radius: 8px;
+  border: 2px dashed #e0e0e0;
+}
+
+.results-placeholder p:first-child {
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+}
+
+.results-loading {
+  text-align: center;
+  padding: 40px;
+  background: #f0f8ff;
+  border-radius: 8px;
+  border: 2px solid #e3f2fd;
+}
+
+.loading-spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid #e3f2fd;
+  border-top: 4px solid #667eea;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin: 0 auto 20px;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.results-warning {
+  padding: 20px;
+  background: #fff3cd;
+  border: 1px solid #ffeaa7;
+  border-radius: 8px;
+  color: #856404;
+}
+
+.results-error {
+  padding: 20px;
+  background: #f8d7da;
+  border: 1px solid #f5c6cb;
+  border-radius: 8px;
+  color: #721c24;
+}
+
+.results-empty {
+  padding: 30px;
+  background: #e8f5e8;
+  border: 1px solid #c3e6c3;
+  border-radius: 8px;
+  color: #155724;
+}
+
+.search-tips h4 {
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+.search-tips ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.search-tips li {
+  padding: 5px 0;
+  padding-left: 20px;
+  position: relative;
+}
+
+.search-tips li:before {
+  content: "💡";
+  position: absolute;
+  left: 0;
+}
+
+.results-success {
+  background: white;
+  border-radius: 8px;
+}
+
+.search-summary {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 20px;
+  border-radius: 8px 8px 0 0;
+  margin-bottom: 20px;
+}
+
+.search-summary h3 {
+  margin: 0 0 10px 0;
+  font-size: 1.3rem;
+}
+
+.search-summary p {
+  margin: 5px 0;
+  opacity: 0.9;
+}
+
+.similar-issues h4 {
+  color: #333;
+  margin-bottom: 15px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid #e0e0e0;
+}
+
+.issues-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+.issue-card {
+  background: #f8f9fa;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 20px;
+  transition: all 0.3s ease;
+}
+
+.issue-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border-color: #667eea;
+}
+
+.issue-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.issue-key {
+  background: #667eea;
+  color: white;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  font-weight: bold;
+}
+
+.similarity-badge {
+  background: #28a745;
+  color: white;
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  font-weight: bold;
+}
+
+.issue-title {
+  margin: 0 0 12px 0;
+  color: #333;
+  font-size: 1.1rem;
+  line-height: 1.3;
+}
+
+.issue-meta {
+  margin-bottom: 12px;
+}
+
+.status-badge {
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  background: #6c757d;
+  color: white;
+}
+
+.issue-description {
+  color: #666;
+  font-size: 0.9rem;
+  line-height: 1.4;
+  margin: 0;
+}
+
+.ai-suggestion {
+  background: #f0f8ff;
+  border: 1px solid #b3d9ff;
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.ai-suggestion h4 {
+  color: #0056b3;
+  margin: 0 0 15px 0;
+  font-size: 1.1rem;
+}
+
+.suggestion-content p {
+  margin: 8px 0;
+  color: #333;
+  line-height: 1.5;
+}
+
+.raw-data {
+  margin-top: 20px;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+}
+
+.raw-data summary {
+  padding: 15px;
+  background: #f8f9fa;
+  border-radius: 8px 8px 0 0;
+  cursor: pointer;
+  font-weight: bold;
+  color: #333;
+}
+
+.raw-data summary:hover {
+  background: #e9ecef;
+}
+
+.raw-data pre {
+  margin: 0;
+  padding: 20px;
+  background: #f8f8f8;
+  border-radius: 0 0 8px 8px;
+  font-size: 0.8rem;
+  overflow-x: auto;
+  white-space: pre-wrap;
+  color: #333;
+}
+
 @media (max-width: 768px) {
   .search-container {
     padding: 20px;
@@ -138,7 +376,13 @@ h1 {
     width: 100%;
   }
 
-  .results-textarea {
-    min-height: 200px;
+  .issues-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .issue-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
   }
 }
