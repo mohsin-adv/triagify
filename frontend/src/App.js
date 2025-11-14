@@ -72,7 +72,7 @@ function App() {
           <input
             type="text"
             className="search-input"
-            placeholder="Enter your search query..."
+            placeholder="Enter your triagify query..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             onKeyPress={handleKeyPress}
@@ -144,7 +144,7 @@ function App() {
           {results?.type === 'success' && (
             <div className="results-success">
               <div className="search-summary">
-                <h3>🔍 Smart Search Results</h3>
+                <h3>🔍 Triagified Results</h3>
                 <p>Query: <strong>"{results.data.query}"</strong></p>
                 <p>Found <strong>{results.data.total}</strong> similar issues</p>
               </div>
