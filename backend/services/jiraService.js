@@ -75,16 +75,16 @@ export async function getAllIssues(projectKey, maxResults = 100) {
       {
         jql: `project = ${projectKey} ORDER BY created DESC`,
         maxResults: maxResults,
-        fields: ["summary", "status", "priority", "assignee", "comment", "worklog", "timespent", "timeoriginalestimate", "timeestimate", "workdone", "rootcause", "rootcauseresolution", "customfield_*"],
+        fields: ["summary","description", "status", "comment"],
       }
     );
 
     const issues = response.data.issues.map(i => ({
       key: i.key,
       summary: i.fields.summary,
-      description: i.fields.description || "",
-      comments: (i.fields.comment?.comments || []).map(c => extractTextFromADF(c.body)).filter(comment => comment.trim()).join("\n"),
-      resolution: i.fields.resolution?.name || "Unresolved",
+      status: i.fields.status.name,
+      description: i.fields.description || "",      
+      comments: (i.fields.comment?.comments || []).map(c => extractTextFromADF(c.body)).filter(comment => comment.trim()).join("\n"),      
     }));
 
     return { issues };
