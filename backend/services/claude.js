@@ -5,11 +5,10 @@ export async function getResolutionSuggestion(issue, similarIssues) {
     const prompt = `
 You are an AI JIRA assistant. A user reported this issue:
 
-"${issue.summary}"
-"${issue.description}"
+"${issue.query}"
 
 Here are similar issues and their resolutions:
-${similarIssues.map((i, idx) => `[${idx + 1}] ${i.summary} → Resolution: ${i.resolution}`).join("\n")}
+${similarIssues.map((i, idx) => `[${idx + 1}] ${i.summary} → Resolution: ${i.text}`).join("\n")}
 
 Suggest likely root cause and next steps.
 `;
