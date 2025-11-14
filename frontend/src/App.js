@@ -16,23 +16,58 @@ function App() {
     setResults('Searching...');
 
     try {
-      // Replace this URL with your backend API endpoint
-      const response = await fetch('/api/search', {
+      console.log('Sending search request:', searchQuery);
+      
+      // Connect to your backend search API
+      const response = await fetch('http://localhost:5000/api/search', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ query: searchQuery }),
+        body: JSON.stringify({ 
+          query: searchQuery,
+          searchFields: ['summary', 'description', 'comment']
+        }),
       });
+      
+      console.log('Response status:', response.status);
 
       if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
+        const errorData = await response.json();
+        throw new Error(errorData.error || `HTTP error! status: ${response.status}`);
       }
 
       const data = await response.json();
-      setResults(JSON.stringify(data, null, 2));
+      
+      // Format the results for better display with AI suggestions
+      if (data.similarIssues && data.similarIssues.length > 0) {
+        const formattedResults = ` Smart Search Results for: "${searchQuery}"\n` +
+          `Found ${data.total} similar issues\n\n` +
+          
+          `SIMILAR ISSUES:\n` +
+          `${'='.repeat(50)}\n` +
+          data.similarIssues.map((issue, index) => 
+            `${index + 1}. ${issue.key} - ${issue.summary}\n` +
+            `   📈 Similarity: ${issue.similarityPercentage}\n` +
+            `   📋 Status: ${issue.status}\n` +
+            `   📝 Description: ${issue.text ? issue.text.substring(0, 150) + '...' : 'No description'}\n`
+          ).join('\n') + 
+          
+          `\n🤖 AI RESOLUTION SUGGESTION:\n` +
+          `${'='.repeat(50)}\n` +
+          `${data.aiSuggestion || 'No AI suggestion available'}\n\n` +
+          
+          `📋 Raw API Response:\n` +
+          `${'='.repeat(50)}\n` +
+          JSON.stringify(data, null, 2);
+        
+        setResults(formattedResults);
+      } else {
+        setResults(`No issues found for query: "${searchQuery}"\n\nTry searching for:\n- Issue summaries\n- Keywords from descriptions\n- Assignee names\n- Status names`);
+      }
     } catch (error) {
-      setResults(`Error: ${error.message}`);
+      console.error('Search error:', error);
+      setResults(`Error: ${error.message}\n\nMake sure your backend server is running on http://localhost:5000`);
     } finally {
       setIsLoading(false);
     }

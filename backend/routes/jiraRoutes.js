@@ -30,192 +30,61 @@ router.get("/issues/:projectKey", async (req, res) => {
   }
 });
 
-// 🔍 Helper route to discover available fields
-router.get("/fields/:projectKey", async (req, res) => {
-  const { projectKey } = req.params;
-
-  try {
-    // Get a single issue to see all available fields
-    const response = await axios.post(
-      `${JIRA_BASE_URL}/rest/api/3/search/jql`,
-      {
-        jql: `project = ${projectKey} ORDER BY created DESC`,
-        maxResults: 1,
-        fields: ["*all"], // Get all fields
-      },
-      {
-        headers: {
-          Authorization: `Basic ${Buffer.from(
-            `${JIRA_EMAIL}:${JIRA_API_TOKEN}`
-          ).toString("base64")}`,
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-      }
-    );
-
-    if (response.data.issues.length > 0) {
-      const issue = response.data.issues[0];
-      const availableFields = Object.keys(issue.fields);
-      
-      // Filter fields that might be related to work done and root cause
-      const workRelatedFields = availableFields.filter(field => 
-        field.toLowerCase().includes('work') || 
-        field.toLowerCase().includes('done') ||
-        field.toLowerCase().includes('time') ||
-        field.toLowerCase().includes('effort')
-      );
-      
-      const rootCauseFields = availableFields.filter(field => 
-        field.toLowerCase().includes('root') || 
-        field.toLowerCase().includes('cause') ||
-        field.toLowerCase().includes('resolution')
-      );
-
-      res.json({ 
-        message: "Available fields in your Jira instance",
-        allFields: availableFields,
-        workRelatedFields: workRelatedFields,
-        rootCauseFields: rootCauseFields,
-        sampleIssue: issue.key
-      });
-    } else {
-      res.json({ message: "No issues found in project", fields: [] });
-    }
-  } catch (err) {
-    console.error("Error fetching fields:", err.response?.data || err.message);
-    res.status(500).json({
-      error: "Failed to fetch available fields",
-      details: err.response?.data || err.message,
-    });
-  }
-});
-
-// 🔍 Search API for Jira issues
+// 🔍 Smart Search API using Vector Similarity and AI Suggestions
 router.post("/search", async (req, res) => {
-  const { query, projectKey, searchFields, maxResults = 50 } = req.body;
+  const { query, searchFields } = req.body;
 
   if (!query || !query.trim()) {
     return res.status(400).json({ error: "Search query is required" });
   }
 
-  // Default to searching across all projects if no projectKey specified
-  const jqlProject = projectKey ? `project = ${projectKey}` : "";
-  
-  // Build JQL search query
-  let jqlSearch = "";
-  const searchTerm = query.trim();
-  
-  // Define searchable fields
-  const defaultSearchFields = ['summary', 'description', 'comment'];
-  const fieldsToSearch = searchFields || defaultSearchFields;
-  
-  // Build search conditions
-  const searchConditions = fieldsToSearch.map(field => {
-    switch(field) {
-      case 'summary':
-        return `summary ~ "${searchTerm}"`;
-      case 'description':
-        return `description ~ "${searchTerm}"`;
-      case 'comment':
-        return `comment ~ "${searchTerm}"`;
-      case 'assignee':
-        return `assignee.displayName ~ "${searchTerm}"`;
-      case 'status':
-        return `status.name ~ "${searchTerm}"`;
-      case 'key':
-        return `key ~ "${searchTerm}"`;
-      default:
-        return `${field} ~ "${searchTerm}"`;
-    }
-  });
-  
-  jqlSearch = searchConditions.join(' OR ');
-  
-  // Combine project and search conditions
-  const finalJql = projectKey 
-    ? `${jqlProject} AND (${jqlSearch}) ORDER BY updated DESC`
-    : `(${jqlSearch}) ORDER BY updated DESC`;
-
-  console.log("Search query:", searchTerm);
-  console.log("JQL query:", finalJql);
-
-  if (!JIRA_BASE_URL || !JIRA_EMAIL || !JIRA_API_TOKEN) {
-    return res.status(500).json({ error: "JIRA credentials not configured properly" });
-  }
+  const searchQuery = query.trim();
+  console.log("🔍 Processing search query:", searchQuery);
 
   try {
-    const response = await axios.post(
-      `${JIRA_BASE_URL}/rest/api/3/search/jql`,
-      {
-        jql: finalJql,
-        maxResults: parseInt(maxResults),
-        fields: [
-          "summary", "status", "priority", "assignee", "comment", 
-          "description", "created", "updated", "project",
-          "worklog", "timespent", "timeoriginalestimate", "timeestimate", 
-          "workdone", "rootcause", "rootcauseresolution"
-        ],
-      },
-      {
-        headers: {
-          Authorization: `Basic ${Buffer.from(
-            `${JIRA_EMAIL}:${JIRA_API_TOKEN}`
-          ).toString("base64")}`,
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-      }
+    // Step 1: Import required functions
+    const { findSimilarIssues } = await import("../services/vector.js");
+    const { getResolutionSuggestion } = await import("../services/claude.js");
+
+    // Step 2: Query for similar issues using vector similarity
+    console.log("📊 Finding similar issues using vector similarity...");
+    const similarIssues = await findSimilarIssues(searchQuery);
+    
+    console.log("Similar Issues found:", similarIssues.map(i => i.key));
+
+    // Step 3: Get Claude's recommended resolution
+    console.log("🧠 Getting AI resolution suggestion...");
+    const suggestion = await getResolutionSuggestion(
+      { query: searchQuery }, 
+      similarIssues
     );
 
-    const issues = response.data.issues.map((i) => ({
-      key: i.key,
-      summary: i.fields.summary,
-      description: i.fields.description || null,
-      status: i.fields.status?.name,
-      priority: i.fields.priority?.name,
-      assignee: i.fields.assignee?.displayName || "Unassigned",
-      project: i.fields.project?.key,
-      created: i.fields.created,
-      updated: i.fields.updated,
-      timeSpent: i.fields.timespent || 0,
-      timeEstimate: i.fields.timeestimate || 0,
-      originalEstimate: i.fields.timeoriginalestimate || 0,
-      workDone: i.fields.workdone || null,
-      rootCause: i.fields.rootcause || null,
-      rootCauseResolution: i.fields.rootcauseresolution || null,
-      worklog: i.fields.worklog?.worklogs?.map(work => ({
-        id: work.id,
-        author: work.author?.displayName,
-        timeSpent: work.timeSpent,
-        timeSpentSeconds: work.timeSpentSeconds,
-        comment: work.comment,
-        started: work.started,
-        created: work.created,
-        updated: work.updated
-      })) || [],
-      comments: i.fields.comment?.comments?.map(comment => ({
-        id: comment.id,
-        author: comment.author?.displayName,
-        body: comment.body,
-        created: comment.created,
-        updated: comment.updated
-      })) || []
-    }));
+    console.log("\n🎯 Suggested Resolution:\n", suggestion);
 
-    res.json({ 
-      query: searchTerm,
-      total: response.data.total,
-      maxResults: response.data.maxResults,
-      startAt: response.data.startAt,
-      issues: issues
-    });
+    // Format response with similar issues and AI suggestion
+    const response = {
+      query: searchQuery,
+      total: similarIssues.length,
+      similarIssues: similarIssues.map(issue => ({
+        key: issue.key,
+        summary: issue.summary,
+        text: issue.text,
+        status: issue.status,
+        similarity: Math.round(issue.similarity * 100) / 100, // Round to 2 decimal places
+        similarityPercentage: `${Math.round(issue.similarity * 100)}%`
+      })),
+      aiSuggestion: suggestion,
+      searchFields: searchFields || ['summary', 'description', 'comment']
+    };
+
+    res.json(response);
 
   } catch (err) {
-    console.error("Jira search error:", err.response?.data || err.message);
+    console.error("❌ Smart search error:", err.message);
     res.status(500).json({
-      error: "Failed to search Jira issues",
-      details: err.response?.data || err.message,
+      error: "Failed to process smart search",
+      details: err.message,
+      suggestion: "Make sure the issue vector database exists and AI services are configured"
     });
   }
 });
