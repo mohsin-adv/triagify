@@ -46,11 +46,14 @@ router.post("/search", async (req, res) => {
     const { findSimilarIssues } = await import("../services/vector.js");
     const { getResolutionSuggestion } = await import("../services/claude.js");
 
-    // Step 2: Query for similar issues using vector similarity
-    console.log("📊 Finding similar issues using vector similarity...");
-    const similarIssues = await findSimilarIssues(searchQuery);
+    // Step 2: Enhanced semantic search with clustering (VP's suggestion)
+    console.log("📊 Finding similar issues using enhanced semantic search...");
+    const { semanticSearchWithClusters } = await import("../services/vector.js");
+    const searchResults = await semanticSearchWithClusters(searchQuery);
+    const similarIssues = searchResults.similarIssues;
     
     console.log("Similar Issues found:", similarIssues.map(i => i.key));
+    console.log("Relevant Clusters:", searchResults.relevantClusters.map(c => c.category));
 
     // Step 3: Get Claude's recommended resolution
     console.log("🧠 Getting AI resolution suggestion...");
@@ -61,20 +64,42 @@ router.post("/search", async (req, res) => {
 
     console.log("\n🎯 Suggested Resolution:\n", suggestion);
 
-    // Format response with similar issues and AI suggestion
+    // Enhanced response with metadata, tags, and clustering (VP's suggestions)
     const response = {
       query: searchQuery,
       total: similarIssues.length,
+      
+      // Enhanced similar issues with metadata and tags
       similarIssues: similarIssues.map(issue => ({
         key: issue.key,
         summary: issue.summary,
         text: issue.text,
         status: issue.status,
-        similarity: Math.round(issue.similarity * 100) / 100, // Round to 2 decimal places
-        similarityPercentage: `${Math.round(issue.similarity * 100)}%`
+        similarity: Math.round(issue.similarity * 100) / 100,
+        similarityPercentage: `${Math.round(issue.similarity * 100)}%`,
+        
+        // VP requested metadata
+        metadata: issue.metadata || {},
+        tags: issue.tags || [],
+        autoSummary: issue.autoSummary || issue.summary,
+        clusterCategory: issue.clusterCategory
       })),
+      
+      // VP requested clustering information
+      clusters: searchResults.relevantClusters || [],
+      
+      // AI suggestion
       aiSuggestion: suggestion,
-      searchFields: searchFields || ['summary', 'description', 'comment']
+      
+      // Analytics for operationalization
+      analytics: {
+        searchFields: searchFields || ['summary', 'description', 'comment'],
+        timestamp: new Date().toISOString(),
+        clusterCount: searchResults.relevantClusters?.length || 0,
+        avgSimilarity: similarIssues.length > 0 
+          ? Math.round((similarIssues.reduce((sum, i) => sum + i.similarity, 0) / similarIssues.length) * 100) / 100 
+          : 0
+      }
     };
 
     res.json(response);
@@ -88,5 +113,100 @@ router.post("/search", async (req, res) => {
     });
   }
 });
+
+// 🎯 Clustering Management API (VP's operationalization request)
+router.post("/cluster", async (req, res) => {
+  const { threshold = 0.7, regenerate = false } = req.body;
+
+  try {
+    const { clusterIssues } = await import("../services/vector.js");
+    
+    console.log("🎯 Generating issue clusters for operational insights...");
+    const clusters = await clusterIssues(threshold);
+    
+    // Operational metrics for Platform Ops and Customer Support
+    const metrics = {
+      totalClusters: clusters.length,
+      totalIssues: clusters.reduce((sum, c) => sum + c.members.length, 0),
+      criticalClusters: clusters.filter(c => c.category === 'Critical Issues').length,
+      bugClusters: clusters.filter(c => c.category === 'Bug Reports').length,
+      performanceClusters: clusters.filter(c => c.category === 'Performance Issues').length,
+      
+      // Top categories for ops teams
+      categorySummary: clusters.reduce((acc, c) => {
+        acc[c.category] = (acc[c.category] || 0) + c.members.length;
+        return acc;
+      }, {}),
+      
+      // Largest clusters (potential operational focus areas)
+      topClusters: clusters.slice(0, 5).map(c => ({
+        id: c.id,
+        category: c.category,
+        size: c.members.length,
+        commonTags: c.commonTags,
+        avgSimilarity: Math.round(c.avgSimilarity * 100) / 100
+      }))
+    };
+
+    res.json({
+      message: "Issue clustering completed for operational analysis",
+      clusters: clusters,
+      operationalMetrics: metrics,
+      recommendations: generateOperationalRecommendations(metrics)
+    });
+
+  } catch (err) {
+    console.error("❌ Clustering error:", err.message);
+    res.status(500).json({
+      error: "Failed to generate issue clusters",
+      details: err.message
+    });
+  }
+});
+
+function generateOperationalRecommendations(metrics) {
+  const recommendations = [];
+  
+  if (metrics.criticalClusters > 0) {
+    recommendations.push({
+      priority: "HIGH",
+      team: "Platform Ops",
+      action: `Immediate attention needed: ${metrics.criticalClusters} critical issue clusters identified`,
+      impact: "System Stability"
+    });
+  }
+  
+  if (metrics.bugClusters > 2) {
+    recommendations.push({
+      priority: "MEDIUM", 
+      team: "Development",
+      action: `Bug pattern analysis recommended: ${metrics.bugClusters} bug clusters found`,
+      impact: "Product Quality"
+    });
+  }
+  
+  if (metrics.performanceClusters > 1) {
+    recommendations.push({
+      priority: "MEDIUM",
+      team: "Platform Ops", 
+      action: `Performance optimization needed: ${metrics.performanceClusters} performance clusters`,
+      impact: "User Experience"
+    });
+  }
+  
+  // Customer Support recommendations
+  const topCategory = Object.keys(metrics.categorySummary).reduce((a, b) => 
+    metrics.categorySummary[a] > metrics.categorySummary[b] ? a : b
+  );
+  
+  recommendations.push({
+    priority: "LOW",
+    team: "Customer Support",
+    action: `Focus training on ${topCategory} - highest volume category`,
+    impact: "Support Efficiency"
+  });
+  
+  return recommendations;
+}
 
 export default router;
