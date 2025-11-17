@@ -7,7 +7,7 @@ const app = express();
 app.use(cors()); // Enable CORS for all routes
 app.use(bodyParser.json());
 
-// ✅ This line is CRUCIAL
+// ✅ This line is CRUCIAL - test
 app.use("/api", jiraRoutes);
 
 const PORT = 5000;
